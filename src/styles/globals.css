@@ -285,22 +285,45 @@ button {
    Motion Reveal Base
    ======================================== */
 
-.reveal {
+/* Only hide when JS is running (html.js is set by an inline script in layout). */
+.js .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity var(--duration-reveal) var(--ease-out),
-              transform var(--duration-reveal) var(--ease-out);
+  transform: var(--reveal-from, translateY(24px));
+  transition:
+    opacity var(--reveal-duration, 650ms) var(--ease-out) var(--reveal-delay, 0ms),
+    transform var(--reveal-duration, 650ms) var(--ease-out) var(--reveal-delay, 0ms);
 }
 
-.reveal.visible {
+.js .reveal.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+}
+
+/* Above-the-fold entrance: pure CSS, runs on first paint without waiting for hydration. */
+.reveal-now {
+  animation: reveal-in var(--reveal-duration, 650ms) var(--ease-out) var(--reveal-delay, 0ms) both;
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: var(--reveal-from, translateY(24px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .reveal-now {
+    animation: none;
+  }
+
+  .js .reveal {
     opacity: 1;
     transform: none;
+    transition: none;
   }
 }
 

@@ -4,13 +4,20 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/content/site';
-import { getStudioBookingUrl } from '@/lib/whatsapp';
+import { getStudioBookingUrl, isWhatsAppConfigured } from '@/lib/whatsapp';
 import styles from './SiteHeader.module.css';
 
 export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const [lastPathname, setLastPathname] = useState(pathname);
+
+  // Close menu on route change (adjusting state during render, not in an effect)
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname);
+    setMenuOpen(false);
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -18,11 +25,6 @@ export default function SiteHeader() {
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  // Close menu on route change
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
 
   // Lock body scroll when menu is open
   useEffect(() => {
@@ -114,16 +116,26 @@ export default function SiteHeader() {
           >
             Start a Project
           </Link>
-          <a
-            href={getStudioBookingUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.mobileSecondaryCta}
-            onClick={() => setMenuOpen(false)}
-          >
-            <WhatsAppIcon />
-            Book the Studio
-          </a>
+          {isWhatsAppConfigured() ? (
+            <a
+              href={getStudioBookingUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.mobileSecondaryCta}
+              onClick={() => setMenuOpen(false)}
+            >
+              <WhatsAppIcon />
+              Book the Studio
+            </a>
+          ) : (
+            <Link
+              href="/studio"
+              className={styles.mobileSecondaryCta}
+              onClick={() => setMenuOpen(false)}
+            >
+              Book the Studio
+            </Link>
+          )}
         </div>
       </div>
     </header>

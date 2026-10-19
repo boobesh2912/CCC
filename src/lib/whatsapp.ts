@@ -9,15 +9,19 @@ import { siteConfig } from '@/content/site';
 
 const WHATSAPP_BASE = 'https://wa.me/';
 
+let warned = false;
+
 function getWhatsAppNumber(): string {
-  const num = siteConfig.whatsappNumber;
-  if (!num || num === 'REPLACE_WITH_REAL_NUMBER') {
-    console.warn(
-      '⚠️  WhatsApp number is not configured. Update siteConfig.whatsappNumber before launch.'
-    );
+  if (!isWhatsAppConfigured()) {
+    if (!warned) {
+      warned = true;
+      console.warn(
+        '⚠️  WhatsApp number is not configured. Set NEXT_PUBLIC_WHATSAPP_NUMBER before launch.'
+      );
+    }
     return '';
   }
-  return num;
+  return siteConfig.whatsappNumber.replace(/\D/g, '');
 }
 
 export function buildWhatsAppUrl(message?: string): string {
@@ -49,8 +53,6 @@ export function getServicesEnquiryUrl(): string {
 }
 
 export function isWhatsAppConfigured(): boolean {
-  return (
-    siteConfig.whatsappNumber !== '' &&
-    siteConfig.whatsappNumber !== 'REPLACE_WITH_REAL_NUMBER'
-  );
+  // Digits only, with country code: at least 8 digits after stripping spaces/+/dashes.
+  return siteConfig.whatsappNumber.replace(/\D/g, '').length >= 8;
 }

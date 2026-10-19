@@ -54,6 +54,7 @@
 }
 
 .pathCardDark {
+  min-width: 0;
   background-color: var(--ccc-panel);
   border: 1px solid var(--ccc-line-dark);
   padding: var(--space-xl);
@@ -62,6 +63,7 @@
 }
 
 .pathCardPaper {
+  min-width: 0;
   background-color: var(--ccc-paper);
   color: var(--ccc-ink);
   padding: var(--space-xl);
@@ -71,6 +73,8 @@
 
 .pathCardHeader {
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: var(--space-md);
@@ -298,4 +302,43 @@
   padding: 0.15rem 0.4rem;
   border: 1px solid var(--ccc-line-dark);
   color: var(--ccc-paper);
+}
+
+/* ENQUIRY FORM */
+.formSection {
+  padding: var(--space-section) 0;
+  background-color: var(--ccc-paper);
+  color: var(--ccc-ink);
+}
+
+.formLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+}
+
+@media (min-width: 1024px) {
+  .formLayout {
+    grid-template-columns: 1fr 1.6fr;
+  }
+}
+
+.formIntro {
+  min-width: 0;
+}
+
+.formHeading {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  line-height: 1.1;
+  color: var(--ccc-ink);
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+.formLead {
+  font-size: var(--text-lg);
+  color: var(--ccc-ink-muted);
+  line-height: 1.6;
+  max-width: 44ch;
 }

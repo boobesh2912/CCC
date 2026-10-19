@@ -6,7 +6,8 @@ import { getServicesEnquiryUrl } from '@/lib/whatsapp';
 import styles from './about.module.css';
 
 export const metadata = {
-  title: 'About CCC | Covai Creative Corner',
+  title: 'About CCC',
+  alternates: { canonical: '/about' },
   description:
     'Creative philosophy, production discipline, and collaborative standards behind Covai Creative Corner.',
 };
@@ -21,12 +22,12 @@ export default function AboutPage() {
     {
       num: '02',
       title: 'Make it with care.',
-      body: 'Quality production is not merely about owning expensive hardware. It is the discipline of considered preparation, calibrated room acoustics, patient soundchecks, and surgical post-production.',
+      body: 'Quality comes from preparation as much as equipment: a clear plan for the session, attention to sound and framing, and careful editing afterwards.',
     },
     {
       num: '03',
       title: 'Put it where it matters.',
-      body: 'A master recording achieves nothing sitting in cold storage. We engineer content to live where attention gathers, adapting formats for platforms without diluting message integrity.',
+      body: 'A recording only matters once people see it. We help adapt the work for the channels your audience uses, without losing what it was meant to say.',
     },
   ];
 
@@ -35,13 +36,13 @@ export default function AboutPage() {
       {/* 1. HERO */}
       <section className={styles.heroSection}>
         <div className="container">
-          <MotionReveal direction="up">
+          <MotionReveal direction="up" immediate>
             <SectionEyebrow text="ABOUT CCC" />
             <h1 className={styles.heroTitle}>Good content starts before the camera rolls.</h1>
             <p className={styles.heroSubtitle}>
               Covai Creative Corner is a creative production studio and brand partner built around one
               conviction: the strongest work comes from a clear point of view, a thoughtful
-              production process, and an uncompromising respect for the audience&apos;s attention.
+              production process, and respect for the audience&apos;s attention.
             </p>
           </MotionReveal>
         </div>
@@ -76,8 +77,8 @@ export default function AboutPage() {
                 <SectionEyebrow text="THE ECOSYSTEM" />
                 <h2 className={styles.sectionHeading}>Physical studio meets creative strategy.</h2>
                 <p className={styles.offerLead}>
-                  CCC was specifically structured to bridge the historical gap between where content
-                  is captured and how brands are built.
+                  CCC brings the place where content is recorded and the thinking behind the brand
+                  into one partner, so the two work together.
                 </p>
               </MotionReveal>
             </div>
@@ -86,11 +87,11 @@ export default function AboutPage() {
               <MotionReveal direction="up" delay={100} className={styles.offerCardDark}>
                 <h3 className={styles.offerCardTitle}>Studio & Production</h3>
                 <p className={styles.offerCardDesc}>
-                  A quiet, acoustically treated recording space with broadcast equipment,
-                  monitoring, and technical staff available for rent or full production.
+                  A studio for podcasts, interviews, and video — available on its own or with
+                  production support and editing.
                 </p>
                 <Link href="/studio" className={styles.offerLink}>
-                  Explore Studio Spaces
+                  Explore the Studio
                   <span className={styles.arrow} aria-hidden="true">→</span>
                 </Link>
               </MotionReveal>
@@ -98,8 +99,8 @@ export default function AboutPage() {
               <MotionReveal direction="up" delay={200} className={styles.offerCardPaper}>
                 <h3 className={styles.offerCardTitlePaper}>Brand & Content Services</h3>
                 <p className={styles.offerCardDescPaper}>
-                  Strategic narrative, identity design, podcast and video editing, and
-                  channel-specific digital publishing systems.
+                  Content strategy, scripting, brand identity, video and podcast editing, social
+                  media management, and digital marketing.
                 </p>
                 <Link href="/services" className={styles.offerLinkPaper}>
                   Explore Creative Services
@@ -117,7 +118,7 @@ export default function AboutPage() {
           <div className={styles.teamCard}>
             <MotionReveal direction="up">
               <SectionEyebrow text="THE TEAM" />
-              <h2 className={styles.teamHeading}>Crafted in Coimbatore.</h2>
+              <h2 className={styles.teamHeading}>The people behind CCC.</h2>
               <div className={styles.teamContentBlock}>
                 {/* 
                   TODO: FOUNDER / TEAM DETAILS PLACEHOLDER
@@ -125,20 +126,18 @@ export default function AboutPage() {
                   credentials here once confirmed by CCC management.
                 */}
                 <p className={styles.teamStatement}>
-                  CCC was founded with the conviction that Coimbatore&apos;s creators, entrepreneurs,
-                  and growing enterprises deserve immediate access to broadcast-grade studio
-                  facilities and senior-level creative direction.
+                  CCC is built for founders, creators, and teams who want a thoughtful place to
+                  record and a creative partner to help the work reach people.
                 </p>
                 <p className={styles.teamNotice}>
-                  [Verified team profiles, director credentials, and leadership portraits will be
-                  published as part of the official studio launch sequence.]
+                  Team profiles and portraits will be added here soon.
                 </p>
               </div>
 
               {/* Documented image slot */}
               <div className={styles.teamVisualSlot}>
-                <div className={styles.teamSlotLabel}>RESERVED: LEADERSHIP & STUDIO TEAM PORTRAIT</div>
-                <div className={styles.teamSlotAspect}>ASPECT: 16:9 · NATURAL PRACTICAL ILLUMINATION</div>
+                <div className={styles.teamSlotLabel}>TEAM PORTRAIT · COMING SOON</div>
+                <div className={styles.teamSlotAspect}>16:9</div>
               </div>
             </MotionReveal>
           </div>
@@ -153,8 +152,8 @@ export default function AboutPage() {
               <SectionEyebrow text="ENGAGEMENT" />
               <h2 className={styles.closingTitle}>Ready to start a conversation?</h2>
               <p className={styles.closingText}>
-                Whether booking studio recording time or planning a broader brand content pipeline,
-                we are ready to discuss your objectives.
+                Whether you want to book the studio or plan ongoing content for your brand, start
+                with a message and we&apos;ll help you figure out the next step.
               </p>
               <div className={styles.closingBtn}>
                 <WhatsAppCTA

@@ -1,6 +1,7 @@
 'use client';
 
 import { trackCTAClick, type CTAEvent } from '@/lib/analytics';
+import { isWhatsAppConfigured } from '@/lib/whatsapp';
 import styles from './WhatsAppCTA.module.css';
 
 interface WhatsAppCTAProps {
@@ -28,9 +29,7 @@ export default function WhatsAppCTA({
     trackCTAClick(analyticsEvent);
   };
 
-  const isConfigured = href && !href.includes('REPLACE_WITH_REAL_NUMBER');
-
-  if (!isConfigured) {
+  if (!href || !isWhatsAppConfigured()) {
     return (
       <span
         className={`${styles.cta} ${styles[variant]} ${styles[size]} ${styles.disabled} ${className}`}

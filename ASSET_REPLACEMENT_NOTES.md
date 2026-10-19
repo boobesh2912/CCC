@@ -6,20 +6,20 @@
 
 | Item | Current Status | Where to Update |
 |------|---------------|-----------------|
-| WhatsApp number | `REPLACE_WITH_REAL_NUMBER` placeholder | `src/content/site.ts` → `whatsappNumber` |
-| Domain / URL | Placeholder `covaicreativecorner.com` | `src/content/site.ts` → `url` |
+| WhatsApp number | Not set — all WhatsApp buttons render disabled and the contact form is switched off until it is | Set `NEXT_PUBLIC_WHATSAPP_NUMBER` (digits only, with country code) in `.env.local` or your host's env settings — see `.env.example` |
+| Domain / URL | Placeholder `covaicreativecorner.com` (used for canonical URLs, sitemap, OG) | `src/content/site.ts` → `url` |
 
 ## 🟠 Required for quality launch
 
 | Item | Current Status | Where to Update |
 |------|---------------|-----------------|
-| Studio wide shot photograph | No image — using CSS placeholder | `public/images/` → replace `hero-studio.jpg` |
+| Studio wide shot photograph | Illustrative CSS composition (`HeroVisual`) on Home and Studio | `public/images/`, then swap `HeroVisual` in `src/app/page.tsx` and `src/app/studio/page.tsx` |
 | Studio detail/close-up images | No images | `public/images/` → `studio-detail-*.jpg` |
 | Founder/team photo(s) | Not included | `public/images/` → `team-*.jpg`, update About page |
-| Founder name & bio | Placeholder text, no name | `src/app/about/page.tsx` |
+| Founder name & bio | "The people behind CCC" section with a portrait slot | `src/app/about/page.tsx` (see TODO comment) |
 | Location / city / service area | Empty in config | `src/content/site.ts` → `location` |
 | Social media profile URLs | Empty strings | `src/content/site.ts` → `social` |
-| Favicon & OG image | Default Next.js | `src/app/favicon.ico`, `public/images/og-image.jpg` |
+| Favicon & OG image | Temporary typographic versions | `src/app/icon.svg`, `src/app/opengraph-image.tsx` (or replace with `opengraph-image.jpg`) |
 
 ## 🟡 Recommended before launch
 
@@ -27,12 +27,12 @@
 |------|---------------|-----------------|
 | Real portfolio/work samples | Illustrative placeholders only | `src/app/work/page.tsx`, `public/images/work/` |
 | Client testimonials | None — never fabricated | Add only with permission |
-| Equipment/amenities list | Not listed | `src/app/studio/page.tsx` |
+| Equipment/amenities list | Not listed — all unverified gear claims were removed | `src/app/studio/page.tsx` (options section) |
 | Studio capacity & hours | Not listed | `src/app/studio/page.tsx` |
 | Pricing information | Not included | Add only when confirmed by CCC |
 | FAQ answers | Provisional — direct to WhatsApp | `src/content/faqs.ts` |
 | Booking policies | Not included | Add to FAQ or studio page when confirmed |
-| Privacy policy page | Not created | Create `/privacy` route if analytics/forms collect data |
+| Privacy policy page | Not needed yet — no analytics, and the contact form only builds a WhatsApp message on the visitor's device | Create `/privacy` before adding analytics or a server-side form |
 
 ## 📸 Image Placeholders
 

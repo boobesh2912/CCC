@@ -10,7 +10,7 @@ export default function HeroVisual() {
           <span className={styles.recText}>REC</span>
         </div>
         <div className={styles.timecode}>00:24:18:12</div>
-        <div className={styles.fps}>4K · 24FPS · 1/48</div>
+        <div className={styles.fps}>SCENE 01 · TAKE 03</div>
       </div>
 
       {/* Atmospheric studio scene composed with tactile layers */}

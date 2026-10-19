@@ -5,13 +5,16 @@ import WhatsAppCTA from '@/components/ui/WhatsAppCTA';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import FAQAccordion from '@/components/sections/FAQAccordion';
 import HeroVisual from '@/components/sections/HeroVisual';
+import ProcessSequence from '@/components/sections/ProcessSequence';
+import TiltFrame from '@/components/motion/TiltFrame';
 import { studioFeatures, brandFeatures, processSteps, services } from '@/content/services';
 import { homeFaqs } from '@/content/faqs';
 import { getStudioBookingUrl, getServicesEnquiryUrl } from '@/lib/whatsapp';
 import styles from './page.module.css';
 
 export const metadata = {
-  title: 'Covai Creative Corner | Cinematic Creative Production Studio & Brand Partner',
+  title: { absolute: 'Covai Creative Corner — Creative Production Studio & Brand Partner' },
+  alternates: { canonical: '/' },
   description:
     'A creative production studio and content partner for podcasts, video, brands, and content built to connect.',
 };
@@ -25,27 +28,27 @@ export default function HomePage() {
           <div className={styles.heroLayout}>
             {/* Left Content Safe Area */}
             <div className={styles.heroContent}>
-              <MotionReveal direction="up" delay={100}>
+              <MotionReveal direction="up" delay={100} immediate>
                 <div className={styles.eyebrowWrapper}>
                   <SectionEyebrow text="COVAI · CREATIVE PRODUCTION STUDIO" />
                   <span className={styles.productionTag}>RECORD / CREATE / PUBLISH</span>
                 </div>
               </MotionReveal>
 
-              <MotionReveal direction="up" delay={200}>
+              <MotionReveal direction="up" delay={200} immediate>
                 <h1 className={styles.heroTitle}>
                   Make room for a better story.
                 </h1>
               </MotionReveal>
 
-              <MotionReveal direction="up" delay={300}>
+              <MotionReveal direction="up" delay={300} immediate>
                 <p className={styles.heroSubtitle}>
                   A production studio and creative partner for podcasts, video, brands, and
                   content built to connect.
                 </p>
               </MotionReveal>
 
-              <MotionReveal direction="up" delay={400}>
+              <MotionReveal direction="up" delay={400} immediate>
                 <div className={styles.heroActions}>
                   <WhatsAppCTA
                     href={getStudioBookingUrl()}
@@ -60,7 +63,7 @@ export default function HomePage() {
                 </div>
               </MotionReveal>
 
-              <MotionReveal direction="none" delay={500}>
+              <MotionReveal direction="none" delay={500} immediate>
                 <div className={styles.scrollCue}>
                   <span className={styles.scrollLine} />
                   <span className={styles.scrollText}>SCROLL TO EXPLORE</span>
@@ -70,9 +73,11 @@ export default function HomePage() {
 
             {/* Right Asymmetrical Visual Composition */}
             <div className={styles.heroMedia}>
-              <MotionReveal direction="up" delay={250}>
+              <MotionReveal direction="up" delay={250} immediate>
                 <ParallaxImage speed={0.04}>
-                  <HeroVisual />
+                  <TiltFrame>
+                    <HeroVisual />
+                  </TiltFrame>
                 </ParallaxImage>
               </MotionReveal>
             </div>
@@ -90,8 +95,7 @@ export default function HomePage() {
                 <h2 className={styles.sectionHeading}>A space to think out loud.</h2>
                 <p className={styles.bodyParagraph}>
                   Bring the idea, the conversation, or the story. CCC gives you a considered space
-                  to record it, with options for studio-only sessions or complete production
-                  support.
+                  to record it, with options for studio-only sessions or production support.
                 </p>
                 <div className={styles.introCta}>
                   <WhatsAppCTA
@@ -108,15 +112,15 @@ export default function HomePage() {
               <MotionReveal direction="up" delay={150}>
                 <div className={styles.primaryCrop}>
                   <div className={styles.cropPlaceholder}>
-                    <div className={styles.cropLabel}>PRIMARY SOUND STAGE [STUDIO A]</div>
-                    <div className={styles.cropSpec}>ACOUSTICALLY BALANCED · MULTI-MIC ARRAY</div>
+                    <div className={styles.cropLabel}>STUDIO · WIDE</div>
+                    <div className={styles.cropSpec}>PHOTOGRAPHY TO FOLLOW</div>
                   </div>
                 </div>
               </MotionReveal>
               <MotionReveal direction="up" delay={300}>
                 <div className={styles.secondaryCrop}>
                   <div className={styles.cropPlaceholderMini}>
-                    <div className={styles.cropLabel}>DETAIL: BROADCAST RIG</div>
+                    <div className={styles.cropLabel}>DETAIL · CLOSE-UP</div>
                   </div>
                 </div>
               </MotionReveal>
@@ -129,7 +133,7 @@ export default function HomePage() {
       <section className={styles.twoWaysSection}>
         <div className="container">
           <MotionReveal direction="up">
-            <SectionEyebrow text="ENGAGEMENT MODELS" />
+            <SectionEyebrow text="02 · WAYS TO WORK" />
             <h2 className={styles.sectionHeading}>Two ways to work with CCC.</h2>
           </MotionReveal>
 
@@ -167,7 +171,7 @@ export default function HomePage() {
             <MotionReveal direction="up" delay={200} className={styles.wayCardPaper}>
               <div className={styles.wayHeader}>
                 <span className={styles.wayNumberPaper}>02</span>
-                <span className={styles.wayTagPaper}>STRATEGY & GROWTH</span>
+                <span className={styles.wayTagPaper}>BRAND & CONTENT</span>
               </div>
               <h3 className={styles.wayTitlePaper}>Brand & Content</h3>
               <p className={styles.wayDescriptionPaper}>
@@ -200,33 +204,16 @@ export default function HomePage() {
         <div className="container">
           <MotionReveal direction="up">
             <div className={styles.processHeader}>
-              <SectionEyebrow text="THE METHODOLOGY" />
+              <SectionEyebrow text="03 · THE PROCESS" />
               <h2 className={styles.sectionHeading}>From idea to output.</h2>
               <p className={styles.processLead}>
-                A four-stage framework engineered to eliminate production friction and publish work
-                with precision.
+                Four stages that take a piece of content from a rough idea to something your
+                audience actually sees.
               </p>
             </div>
           </MotionReveal>
 
-          <div className={styles.processTimeline}>
-            {processSteps.map((step, idx) => (
-              <MotionReveal
-                key={step.index}
-                direction="up"
-                delay={idx * 120}
-                className={styles.processStepCard}
-              >
-                <div className={styles.stepTop}>
-                  <span className={styles.stepIndex}>{step.index}</span>
-                  <span className={styles.stepLabel}>{step.label}</span>
-                </div>
-                <h3 className={styles.stepTitle}>{step.title}</h3>
-                <p className={styles.stepDesc}>{step.description}</p>
-                <div className={styles.stepMarkerBar} />
-              </MotionReveal>
-            ))}
-          </div>
+          <ProcessSequence steps={processSteps} />
         </div>
       </section>
 
@@ -235,11 +222,11 @@ export default function HomePage() {
         <div className="container">
           <div className={styles.capabilitiesHeader}>
             <MotionReveal direction="up">
-              <SectionEyebrow text="PORTFOLIO FRAMEWORK" />
+              <SectionEyebrow text="04 · CAPABILITIES" />
               <h2 className={styles.sectionHeading}>What we can create.</h2>
               <p className={styles.capabilitiesSub}>
-                Selected illustrative formats demonstrating CCC&apos;s production scope and content
-                delivery standard.
+                Illustrative formats — not client projects — showing the kinds of work CCC can
+                help you make.
               </p>
             </MotionReveal>
           </div>
@@ -248,12 +235,12 @@ export default function HomePage() {
             <MotionReveal direction="up" delay={100} className={styles.capItemLarge}>
               <div className={styles.capVisualAspectWide}>
                 <div className={styles.capOverlayTag}>ILLUSTRATIVE CONCEPT · 01</div>
-                <div className={styles.capWatermark}>PODCAST SERIES PRODUCTION</div>
+                <div className={styles.capWatermark}>PODCAST SERIES</div>
               </div>
               <div className={styles.capMeta}>
-                <h4 className={styles.capTitle}>Long-form Episodic Vodcasts</h4>
+                <h3 className={styles.capTitle}>Episodic video podcasts</h3>
                 <p className={styles.capDesc}>
-                  Multi-camera switched recording with dedicated audio masters and cut-downs.
+                  A recurring conversation series, recorded and edited into full episodes.
                 </p>
               </div>
             </MotionReveal>
@@ -261,12 +248,12 @@ export default function HomePage() {
             <MotionReveal direction="up" delay={200} className={styles.capItemTall}>
               <div className={styles.capVisualAspectTall}>
                 <div className={styles.capOverlayTag}>ILLUSTRATIVE CONCEPT · 02</div>
-                <div className={styles.capWatermark}>BRAND ARTIFACTS</div>
+                <div className={styles.capWatermark}>FOUNDER CONTENT</div>
               </div>
               <div className={styles.capMeta}>
-                <h4 className={styles.capTitle}>Founder & Executive Dialogues</h4>
+                <h3 className={styles.capTitle}>Founder conversations</h3>
                 <p className={styles.capDesc}>
-                  Refined editorial framing for leadership insights and investor narratives.
+                  Founders and leaders sharing what they know, framed with care.
                 </p>
               </div>
             </MotionReveal>
@@ -277,9 +264,9 @@ export default function HomePage() {
                 <div className={styles.capWatermark}>SOCIAL REPURPOSING</div>
               </div>
               <div className={styles.capMeta}>
-                <h4 className={styles.capTitle}>Vertical Clip Ecosystems</h4>
+                <h3 className={styles.capTitle}>Short-form clips</h3>
                 <p className={styles.capDesc}>
-                  High-retention social cuts adapted for Reels, Shorts, and LinkedIn video.
+                  Captioned vertical cuts for Reels, Shorts, and LinkedIn from one recording.
                 </p>
               </div>
             </MotionReveal>
@@ -287,7 +274,7 @@ export default function HomePage() {
 
           <div className={styles.capabilitiesAction}>
             <Link href="/work" className={styles.textLink}>
-              View Selected Capabilities Breakdown
+              See What We Can Create
               <span className={styles.actionArrow} aria-hidden="true">→</span>
             </Link>
           </div>
@@ -298,8 +285,8 @@ export default function HomePage() {
       <section className={styles.servicesSection}>
         <div className="container">
           <MotionReveal direction="up">
-            <SectionEyebrow text="CORE CAPABILITIES" />
-            <h2 className={styles.sectionHeading}>Specialized creative services.</h2>
+            <SectionEyebrow text="05 · SERVICES" />
+            <h2 className={styles.sectionHeading}>Creative services.</h2>
           </MotionReveal>
 
           <div className={styles.servicesList}>
@@ -317,8 +304,8 @@ export default function HomePage() {
                 </div>
                 <div className={styles.serviceRowAction}>
                   <Link href={`/services#${svc.id}`} className={styles.serviceRowLink}>
-                    Details
-                    <span className={styles.rowArrow}>↗</span>
+                    Details<span className="sr-only"> about {svc.title}</span>
+                    <span className={styles.rowArrow} aria-hidden="true">↗</span>
                   </Link>
                 </div>
               </MotionReveal>
@@ -332,7 +319,7 @@ export default function HomePage() {
         <div className="container">
           <div className={styles.philosophyBlock}>
             <MotionReveal direction="up">
-              <SectionEyebrow text="PHILOSOPHY" />
+              <SectionEyebrow text="06 · PHILOSOPHY" />
               <h2 className={styles.philosophyHeading}>
                 Good content starts before the camera rolls.
               </h2>
@@ -340,14 +327,13 @@ export default function HomePage() {
             <MotionReveal direction="up" delay={150}>
               <p className={styles.philosophyBody}>
                 The strongest content is built with intention: a clear point of view, a thoughtful
-                production process, and a reason for the audience to care. CCC provides the physical
-                discipline and strategic clarity needed to make work that lasts.
+                production process, and a reason for the audience to care.
               </p>
             </MotionReveal>
             <MotionReveal direction="up" delay={250}>
               <div className={styles.philosophyLinkWrap}>
                 <Link href="/about" className={styles.textLink}>
-                  Read About CCC&apos;s Creative Standards
+                  Read About CCC&apos;s Approach
                   <span className={styles.actionArrow} aria-hidden="true">→</span>
                 </Link>
               </div>
@@ -362,11 +348,11 @@ export default function HomePage() {
           <div className={styles.faqLayout}>
             <div className={styles.faqHeader}>
               <MotionReveal direction="up">
-                <SectionEyebrow text="INQUIRIES" />
+                <SectionEyebrow text="07 · QUESTIONS" />
                 <h2 className={styles.sectionHeading}>Frequently asked questions.</h2>
                 <p className={styles.faqSub}>
-                  Clear answers on studio operations, production booking, and post-production
-                  deliveries.
+                  Quick answers on the studio and services. For anything specific, ask CCC on
+                  WhatsApp.
                 </p>
               </MotionReveal>
             </div>
@@ -407,8 +393,8 @@ export default function HomePage() {
                 />
               </div>
               <p className={styles.closingDisclaimer}>
-                WhatsApp enquiry opens a direct conversation with CCC. Session scheduling is
-                confirmed based on studio availability.
+                Both buttons open a WhatsApp conversation with CCC. Sessions are confirmed by CCC
+                based on availability — a message is not a booking.
               </p>
             </MotionReveal>
           </div>

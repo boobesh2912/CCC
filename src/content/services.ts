@@ -100,7 +100,7 @@ export const services: ServiceItem[] = [
     id: 'marketing',
     index: '06',
     title: 'Digital Marketing',
-    shortDescription: 'Reach the right people with targeted campaigns and measured results.',
+    shortDescription: 'Reach the right people with planned, measured campaigns.',
     fullDescription:
       'CCC plans and manages digital campaigns across search, social, and content channels. The approach is practical, data-informed, and focused on helping real people find your work.',
     whoItHelps: 'Businesses investing in paid or organic growth who want a partner, not just an ad account.',

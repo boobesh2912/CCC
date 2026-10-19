@@ -1,0 +1,134 @@
+.sequence {
+  --progress: 0;
+}
+
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.progressLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--ccc-muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.track {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background-color: var(--ccc-line-dark);
+  overflow: hidden;
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  background-color: var(--ccc-accent);
+  transform-origin: left center;
+  transform: scaleX(var(--progress));
+}
+
+.timeline {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 640px) {
+  .timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .timeline {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Stagger the frames like a storyboard strip */
+  .step:nth-child(even) {
+    margin-top: var(--space-xl);
+  }
+}
+
+.stepInner {
+  height: 100%;
+  background-color: var(--ccc-panel);
+  border: 1px solid var(--ccc-line-dark);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--duration-base) var(--ease-out);
+}
+
+.step[data-active] .stepInner {
+  border-color: rgba(199, 122, 75, 0.45);
+}
+
+.stepTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--space-md);
+}
+
+.stepIndex {
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  color: var(--ccc-muted);
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.step[data-active] .stepIndex {
+  color: var(--ccc-accent);
+}
+
+.stepLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--ccc-muted);
+}
+
+.stepTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--ccc-paper);
+  margin-bottom: var(--space-xs);
+}
+
+.stepDesc {
+  font-size: var(--text-sm);
+  color: var(--ccc-muted);
+  line-height: 1.6;
+}
+
+.stepMarker {
+  margin-top: auto;
+  padding-top: var(--space-md);
+  display: block;
+  height: 2px;
+  background-color: rgba(241, 238, 231, 0.08);
+  background-clip: content-box;
+  transition: background-color var(--duration-base) var(--ease-out);
+}
+
+.step[data-active] .stepMarker {
+  background-color: var(--ccc-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepInner,
+  .stepIndex,
+  .stepMarker {
+    transition: none;
+  }
+}

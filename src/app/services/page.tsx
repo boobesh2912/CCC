@@ -6,9 +6,10 @@ import { getServicesEnquiryUrl } from '@/lib/whatsapp';
 import styles from './services.module.css';
 
 export const metadata = {
-  title: 'Creative Services | Covai Creative Corner',
+  title: 'Creative Services',
+  alternates: { canonical: '/services' },
   description:
-    'End-to-end brand strategy, scripting, video editing, identity systems, and digital marketing.',
+    'Content strategy, scripting, video and podcast editing, brand identity, social media management, and digital marketing from Covai Creative Corner.',
 };
 
 export default function ServicesPage() {
@@ -17,7 +18,7 @@ export default function ServicesPage() {
       {/* 1. HERO */}
       <section className={styles.heroSection}>
         <div className="container">
-          <MotionReveal direction="up">
+          <MotionReveal direction="up" immediate>
             <SectionEyebrow text="CREATIVE SERVICES" />
             <h1 className={styles.heroTitle}>Build a voice worth hearing.</h1>
             <p className={styles.heroSubtitle}>
@@ -47,18 +48,18 @@ export default function ServicesPage() {
                     <MotionReveal direction="up">
                       <div className={styles.serviceHeaderMeta}>
                         <span className={styles.serviceIndex}>{svc.index}</span>
-                        <span className={styles.serviceCategory}>SPECIALIZATION</span>
+                        <span className={styles.serviceCategory}>SERVICE</span>
                       </div>
                       <h2 className={styles.serviceTitle}>{svc.title}</h2>
                       <p className={styles.serviceDesc}>{svc.fullDescription}</p>
 
                       <div className={styles.serviceSubBlock}>
-                        <h4 className={styles.subHeading}>Who it helps</h4>
+                        <h3 className={styles.subHeading}>Who it helps</h3>
                         <p className={styles.subParagraph}>{svc.whoItHelps}</p>
                       </div>
 
                       <div className={styles.serviceSubBlock}>
-                        <h4 className={styles.subHeading}>Typical collaboration scope</h4>
+                        <h3 className={styles.subHeading}>Typical collaboration scope</h3>
                         <ul className={styles.scopeList}>
                           {svc.typicalWork.map((item) => (
                             <li key={item} className={styles.scopeItem}>
@@ -84,10 +85,10 @@ export default function ServicesPage() {
                   <div className={styles.serviceVisual}>
                     <MotionReveal direction="up" delay={150}>
                       <div className={styles.visualFrame}>
-                        <div className={styles.visualTag}>{svc.title.toUpperCase()} // DEPT</div>
+                        <div className={styles.visualTag}>{svc.title.toUpperCase()}</div>
                         <div className={styles.visualPlaceholderDetail}>
-                          <span className={styles.visualCode}>SPEC // 00{index + 1}</span>
-                          <span className={styles.visualAspectNotice}>PRODUCTION ARTIFACT</span>
+                          <span className={styles.visualCode}>SERVICE {svc.index}</span>
+                          <span className={styles.visualAspectNotice}>IMAGE TO FOLLOW</span>
                         </div>
                       </div>
                     </MotionReveal>

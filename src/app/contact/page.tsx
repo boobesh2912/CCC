@@ -1,11 +1,13 @@
 import MotionReveal from '@/components/motion/MotionReveal';
 import WhatsAppCTA from '@/components/ui/WhatsAppCTA';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
+import EnquiryForm from '@/components/sections/EnquiryForm';
 import { isWhatsAppConfigured, getStudioBookingUrl, getServicesEnquiryUrl } from '@/lib/whatsapp';
 import styles from './contact.module.css';
 
 export const metadata = {
-  title: 'Contact & Booking | Covai Creative Corner',
+  title: 'Contact & Booking',
+  alternates: { canonical: '/contact' },
   description:
     'Start a WhatsApp conversation with CCC to book studio recording time or initiate a creative services enquiry.',
 };
@@ -18,12 +20,12 @@ export default function ContactPage() {
       {/* 1. HERO */}
       <section className={styles.heroSection}>
         <div className="container">
-          <MotionReveal direction="up">
+          <MotionReveal direction="up" immediate>
             <SectionEyebrow text="DIRECT ENQUIRY" />
             <h1 className={styles.heroTitle}>Let&apos;s figure out the right next step.</h1>
             <p className={styles.heroSubtitle}>
               Whether you want to book studio recording sessions or structure a creative project,
-              start with a direct WhatsApp message. CCC will respond directly to confirm details.
+              start with a WhatsApp message. CCC will reply to confirm availability and details.
             </p>
           </MotionReveal>
         </div>
@@ -41,12 +43,12 @@ export default function ContactPage() {
               </div>
               <h2 className={styles.pathTitle}>Book the Studio</h2>
               <p className={styles.pathDesc}>
-                Reserve the recording studio for a podcast series, video interview, founder talk, or
-                creative session.
+                Ask about the studio for a podcast, video interview, founder content, or a creative
+                session.
               </p>
 
               <div className={styles.checklistBlock}>
-                <h4 className={styles.checklistHeading}>Suggested information to include:</h4>
+                <h3 className={styles.checklistHeading}>Suggested information to include:</h3>
                 <ul className={styles.checklist}>
                   <li className={styles.checkItem}>
                     <span className={styles.bulletDark} />
@@ -62,7 +64,7 @@ export default function ContactPage() {
                   </li>
                   <li className={styles.checkItem}>
                     <span className={styles.bulletDark} />
-                    <span>Support level: Studio only vs. Production crew</span>
+                    <span>Support needed: studio only or production support</span>
                   </li>
                 </ul>
               </div>
@@ -77,8 +79,8 @@ export default function ContactPage() {
                 />
               </div>
               <p className={styles.actionNote}>
-                Clicking opens a prefilled WhatsApp conversation. Session times are confirmed
-                manually by CCC based on room availability.
+                Opens WhatsApp with a prefilled message. Sessions are confirmed by CCC based on
+                availability.
               </p>
             </MotionReveal>
 
@@ -90,12 +92,12 @@ export default function ContactPage() {
               </div>
               <h2 className={styles.pathTitlePaper}>Discuss a Creative Project</h2>
               <p className={styles.pathDescPaper}>
-                Reach out about content strategy, scripting, brand identity, podcast editing, or
-                digital growth systems.
+                Reach out about content strategy, scripting, brand identity, editing, social media,
+                or digital marketing.
               </p>
 
               <div className={styles.checklistBlock}>
-                <h4 className={styles.checklistHeadingPaper}>Suggested information to include:</h4>
+                <h3 className={styles.checklistHeadingPaper}>Suggested information to include:</h3>
                 <ul className={styles.checklist}>
                   <li className={styles.checkItemPaper}>
                     <span className={styles.bulletPaper} />
@@ -126,15 +128,36 @@ export default function ContactPage() {
                 />
               </div>
               <p className={styles.actionNotePaper}>
-                Clicking opens a tailored WhatsApp message. CCC will evaluate project alignment and
-                propose next steps.
+                Opens WhatsApp with a prefilled message. CCC will reply to talk through next
+                steps.
               </p>
             </MotionReveal>
           </div>
         </div>
       </section>
 
-      {/* 3. HOW IT WORKS PROGRESSION */}
+      {/* 3. ENQUIRY FORM — prepares a WhatsApp message; nothing is sent to a server */}
+      <section className={styles.formSection} id="enquiry" aria-labelledby="enquiry-heading">
+        <div className="container">
+          <div className={styles.formLayout}>
+            <MotionReveal direction="up" className={styles.formIntro}>
+              <SectionEyebrow text="WRITE IT OUT" variant="light" />
+              <h2 id="enquiry-heading" className={styles.formHeading}>
+                Prefer to fill in the details first?
+              </h2>
+              <p className={styles.formLead}>
+                Answer a few questions and we&apos;ll turn them into a WhatsApp message for you to
+                review and send.
+              </p>
+            </MotionReveal>
+            <MotionReveal direction="up" delay={150}>
+              <EnquiryForm />
+            </MotionReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. HOW IT WORKS PROGRESSION */}
       <section className={styles.howSection}>
         <div className="container">
           <MotionReveal direction="up">
@@ -147,7 +170,7 @@ export default function ContactPage() {
               <span className={styles.stepNum}>01</span>
               <h3 className={styles.stepTitle}>Direct Message</h3>
               <p className={styles.stepDesc}>
-                Send your requirements over WhatsApp. No opaque web forms or ticketing systems.
+                Send your requirements over WhatsApp — use a button above or the form below.
               </p>
             </MotionReveal>
 
@@ -155,8 +178,8 @@ export default function ContactPage() {
               <span className={styles.stepNum}>02</span>
               <h3 className={styles.stepTitle}>Scope & Schedule</h3>
               <p className={styles.stepDesc}>
-                We verify calendar openings, suggest equipment configurations, and outline project
-                scope.
+                CCC confirms availability for studio sessions, or talks through scope for creative
+                projects.
               </p>
             </MotionReveal>
 
@@ -164,15 +187,15 @@ export default function ContactPage() {
               <span className={styles.stepNum}>03</span>
               <h3 className={styles.stepTitle}>Execute & Produce</h3>
               <p className={styles.stepDesc}>
-                Step into the studio or launch creative sprints with verified technical support.
+                Come in and record, or start the creative work — with support agreed up front.
               </p>
             </MotionReveal>
           </div>
         </div>
       </section>
 
-      {/* 4. FALLBACK NOTICE FOR CLIENT TESTING */}
-      {!isConfigured && (
+      {/* 5. FALLBACK NOTICE — shown only in development so it never reaches visitors */}
+      {!isConfigured && process.env.NODE_ENV !== 'production' && (
         <section className={styles.fallbackNoticeSection}>
           <div className="container">
             <div className={styles.fallbackBox}>

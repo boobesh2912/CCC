@@ -1,16 +1,11 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import CurrentYear from '@/components/ui/CurrentYear';
 import { siteConfig } from '@/content/site';
+import { getStudioBookingUrl, isWhatsAppConfigured } from '@/lib/whatsapp';
 import styles from './ContactFooter.module.css';
 
 export default function ContactFooter() {
-  const [year, setYear] = useState(2026);
-
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
+  const whatsAppReady = isWhatsAppConfigured();
   const hasSocial =
     siteConfig.social.instagram ||
     siteConfig.social.youtube ||
@@ -53,9 +48,19 @@ export default function ContactFooter() {
         {/* Bottom section */}
         <div className={styles.bottom}>
           <p className={styles.copyright}>
-            © {year} Covai Creative Corner. All rights reserved.
+            © <CurrentYear /> Covai Creative Corner. All rights reserved.
           </p>
           <div className={styles.socialLinks}>
+            {whatsAppReady && (
+              <a
+                href={getStudioBookingUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialLink}
+              >
+                WhatsApp
+              </a>
+            )}
             {hasSocial && (
               <>
                 {siteConfig.social.instagram && (

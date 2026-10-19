@@ -3,6 +3,7 @@ import { DM_Serif_Display, Manrope, IBM_Plex_Mono } from 'next/font/google';
 import '@/styles/globals.css';
 import SiteHeader from '@/components/navigation/SiteHeader';
 import ContactFooter from '@/components/navigation/ContactFooter';
+import { siteConfig } from '@/content/site';
 
 const dmSerif = DM_Serif_Display({
   weight: '400',
@@ -25,6 +26,8 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  alternates: { canonical: '/' },
   title: {
     default: 'Covai Creative Corner — Creative Production Studio',
     template: '%s | Covai Creative Corner',
@@ -60,7 +63,14 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${dmSerif.variable} ${manrope.variable} ${ibmPlexMono.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        {/* Marks JS as available so scroll reveals can hide content until it enters view. */}
+        <script
+          dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }}
+        />
+      </head>
       <body className="grain-overlay">
         <SiteHeader />
         <main id="main-content">{children}</main>

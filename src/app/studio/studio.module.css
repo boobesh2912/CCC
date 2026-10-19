@@ -332,3 +332,54 @@
   display: flex;
   justify-content: center;
 }
+
+/* Hero split with illustrative visual */
+.heroLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .heroLayout {
+    grid-template-columns: 1.1fr 1fr;
+  }
+}
+
+.heroText,
+.heroMedia {
+  min-width: 0;
+}
+
+.mediaCaption {
+  margin-top: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ccc-muted);
+}
+
+/* Anchor target for /studio#production, offset below the fixed header */
+.anchor {
+  display: block;
+  position: relative;
+  top: calc(-1 * var(--header-height) - var(--space-lg));
+  visibility: hidden;
+}
+
+.specList {
+  list-style: none;
+  padding: 0;
+}
+
+.specItem::before {
+  content: '— ';
+  color: var(--ccc-accent);
+}
+
+.stepsGrid {
+  list-style: none;
+  padding: 0;
+}

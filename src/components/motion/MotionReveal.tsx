@@ -13,11 +13,15 @@ interface MotionRevealProps {
   threshold?: number;
   style?: CSSProperties;
   as?: ElementType;
+  /** Above-the-fold content: play a CSS-only entrance on load instead of waiting for scroll/hydration. */
+  immediate?: boolean;
 }
 
 /**
  * Scroll-triggered reveal component using Intersection Observer.
- * Respects prefers-reduced-motion automatically via CSS.
+ *
+ * Hidden state lives in CSS (`.js .reveal`), so content stays visible when
+ * JavaScript is unavailable. Reduced-motion users get content immediately.
  */
 export default function MotionReveal({
   children,
@@ -30,18 +34,19 @@ export default function MotionReveal({
   threshold = 0.15,
   style,
   as: Component = 'div',
+  immediate = false,
 }: MotionRevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || immediate) return;
 
-    // Check for reduced motion preference
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
+    if (
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      !('IntersectionObserver' in window)
+    ) {
+      el.classList.add('visible');
       return;
     }
 
@@ -49,7 +54,6 @@ export default function MotionReveal({
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            el.style.transitionDelay = `${delay}ms`;
             el.classList.add('visible');
             if (once) observer.unobserve(el);
           } else if (!once) {
@@ -62,7 +66,7 @@ export default function MotionReveal({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [delay, once, threshold]);
+  }, [once, threshold, immediate]);
 
   const translateMap = {
     up: `translateY(${distance}px)`,
@@ -72,16 +76,19 @@ export default function MotionReveal({
     none: 'none',
   };
 
-  const initialStyle: CSSProperties = {
-    opacity: 0,
-    transform: translateMap[direction],
-    transition: `opacity ${duration}ms var(--ease-out), transform ${duration}ms var(--ease-out)`,
-    willChange: 'opacity, transform',
+  const revealStyle = {
+    '--reveal-from': translateMap[direction],
+    '--reveal-delay': `${delay}ms`,
+    '--reveal-duration': `${duration}ms`,
     ...style,
-  };
+  } as CSSProperties;
 
   return (
-    <Component ref={ref} className={className} style={initialStyle}>
+    <Component
+      ref={ref}
+      className={`${immediate ? 'reveal-now' : 'reveal'} ${className}`.trim()}
+      style={revealStyle}
+    >
       {children}
     </Component>
   );
