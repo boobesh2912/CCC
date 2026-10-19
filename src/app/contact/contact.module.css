@@ -1,0 +1,301 @@
+.page {
+  background-color: var(--ccc-ink);
+  color: var(--ccc-paper);
+  min-height: 100vh;
+}
+
+.heroSection {
+  padding-top: calc(var(--header-height) + var(--space-2xl));
+  padding-bottom: var(--space-2xl);
+  border-bottom: 1px solid var(--ccc-line-dark);
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  line-height: 1.08;
+  color: var(--ccc-paper);
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-md);
+  max-width: 20ch;
+}
+
+.heroSubtitle {
+  font-size: var(--text-lg);
+  color: var(--ccc-muted);
+  max-width: 58ch;
+  line-height: 1.65;
+}
+
+.sectionHeading {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  color: var(--ccc-paper);
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-xl);
+}
+
+/* 2. DUAL CONVERSION PATHS */
+.pathsSection {
+  padding: var(--space-section) 0;
+  border-bottom: 1px solid var(--ccc-line-dark);
+}
+
+.pathsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+}
+
+@media (min-width: 1024px) {
+  .pathsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.pathCardDark {
+  background-color: var(--ccc-panel);
+  border: 1px solid var(--ccc-line-dark);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+}
+
+.pathCardPaper {
+  background-color: var(--ccc-paper);
+  color: var(--ccc-ink);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+}
+
+.pathCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--space-md);
+}
+
+.pathLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ccc-accent);
+  letter-spacing: 0.12em;
+}
+
+.pathIndicator {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ccc-muted);
+  letter-spacing: 0.12em;
+}
+
+.pathLabelPaper {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ccc-ink-muted);
+  letter-spacing: 0.12em;
+}
+
+.pathIndicatorPaper {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ccc-ink-muted);
+  letter-spacing: 0.12em;
+}
+
+.pathTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  color: var(--ccc-paper);
+  margin-bottom: var(--space-sm);
+}
+
+.pathTitlePaper {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  color: var(--ccc-ink);
+  margin-bottom: var(--space-sm);
+}
+
+.pathDesc {
+  font-size: var(--text-base);
+  color: var(--ccc-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+.pathDescPaper {
+  font-size: var(--text-base);
+  color: var(--ccc-ink-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+.checklistBlock {
+  background-color: rgba(17, 17, 16, 0.4);
+  border: 1px solid var(--ccc-line-dark);
+  padding: 1.25rem;
+  margin-bottom: var(--space-xl);
+  border-radius: var(--radius-sm);
+}
+
+.pathCardPaper .checklistBlock {
+  background-color: #e6e2d8;
+  border-color: var(--ccc-line-light);
+}
+
+.checklistHeading {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ccc-paper);
+  margin-bottom: 0.75rem;
+}
+
+.pathCardPaper .checklistHeading {
+  color: var(--ccc-ink);
+}
+
+.checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.checkItem {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: var(--text-sm);
+  color: var(--ccc-muted);
+}
+
+.checkItemPaper {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: var(--text-sm);
+  color: var(--ccc-ink-muted);
+}
+
+.bulletDark {
+  width: 5px;
+  height: 5px;
+  background-color: var(--ccc-accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+  transform: translateY(-2px);
+}
+
+.bulletPaper {
+  width: 5px;
+  height: 5px;
+  background-color: var(--ccc-ink);
+  border-radius: 50%;
+  flex-shrink: 0;
+  transform: translateY(-2px);
+}
+
+.cardAction {
+  margin-top: auto;
+  margin-bottom: var(--space-sm);
+}
+
+.actionNote {
+  font-family: var(--font-mono);
+  font-size: clamp(0.6rem, 0.55rem + 0.1vw, 0.7rem);
+  color: var(--ccc-muted);
+  opacity: 0.6;
+  line-height: 1.5;
+}
+
+.actionNotePaper {
+  font-family: var(--font-mono);
+  font-size: clamp(0.6rem, 0.55rem + 0.1vw, 0.7rem);
+  color: var(--ccc-ink-muted);
+  opacity: 0.7;
+  line-height: 1.5;
+}
+
+/* 3. HOW IT WORKS */
+.howSection {
+  padding: var(--space-section) 0;
+  border-bottom: 1px solid var(--ccc-line-dark);
+}
+
+.stepsRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .stepsRow {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.stepItem {
+  background-color: var(--ccc-panel);
+  border: 1px solid var(--ccc-line-dark);
+  padding: var(--space-xl);
+}
+
+.stepNum {
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  color: var(--ccc-accent);
+  display: block;
+  margin-bottom: var(--space-md);
+}
+
+.stepTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--ccc-paper);
+  margin-bottom: var(--space-xs);
+}
+
+.stepDesc {
+  font-size: var(--text-sm);
+  color: var(--ccc-muted);
+  line-height: 1.65;
+}
+
+/* 4. FALLBACK NOTICE */
+.fallbackNoticeSection {
+  padding: var(--space-xl) 0;
+}
+
+.fallbackBox {
+  background-color: #1a1714;
+  border: 1px dashed var(--ccc-accent);
+  padding: 1.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.fallbackTag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  color: var(--ccc-accent);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.fallbackText {
+  font-size: var(--text-sm);
+  color: var(--ccc-muted);
+  line-height: 1.6;
+}
+
+.fallbackText code {
+  font-family: var(--font-mono);
+  background-color: var(--ccc-ink);
+  padding: 0.15rem 0.4rem;
+  border: 1px solid var(--ccc-line-dark);
+  color: var(--ccc-paper);
+}

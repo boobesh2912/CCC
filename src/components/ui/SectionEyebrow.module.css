@@ -1,0 +1,16 @@
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 400;
+  display: inline-block;
+}
+
+.dark {
+  color: var(--ccc-accent);
+}
+
+.light {
+  color: var(--ccc-ink-muted);
+}

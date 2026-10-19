@@ -1,0 +1,204 @@
+.frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background-color: var(--ccc-panel);
+  border: 1px solid var(--ccc-line-dark);
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+}
+
+.viewfinder {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ccc-muted);
+  pointer-events: none;
+}
+
+.recIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.recDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--ccc-accent);
+}
+
+.recText {
+  color: var(--ccc-paper);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+
+.timecode {
+  color: var(--ccc-paper);
+  letter-spacing: 0.15em;
+}
+
+.fps {
+  opacity: 0.7;
+}
+
+/* Studio Scene */
+.studioScene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  background-color: #141413;
+}
+
+.practicalLight {
+  position: absolute;
+  top: 15%;
+  right: 20%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #2a221a;
+  border: 1px solid rgba(199, 122, 75, 0.2);
+}
+
+.slatWall {
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 35%;
+  bottom: 30%;
+  display: flex;
+  gap: 12px;
+  opacity: 0.35;
+}
+
+.slat {
+  flex: 1;
+  height: 100%;
+  background-color: #1f1e1c;
+  border-right: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.micRig {
+  position: absolute;
+  top: 25%;
+  left: 28%;
+  z-index: 5;
+}
+
+.boomArm {
+  width: 140px;
+  height: 4px;
+  background-color: #2e2d2a;
+  transform: rotate(-35deg);
+  transform-origin: left center;
+}
+
+.shockmount {
+  position: absolute;
+  top: 75px;
+  left: 110px;
+  width: 32px;
+  height: 32px;
+  border: 2px solid #3d3b37;
+  border-radius: 50%;
+}
+
+.micBody {
+  position: absolute;
+  top: 70px;
+  left: 122px;
+  width: 16px;
+  height: 45px;
+  background-color: #111110;
+  border: 1px solid #44413c;
+  border-radius: 2px;
+}
+
+.micGrille {
+  width: 100%;
+  height: 18px;
+  background-color: #292825;
+  border-bottom: 1px solid #44413c;
+}
+
+.deskSurface {
+  position: relative;
+  width: 100%;
+  height: 32%;
+  background-color: #181816;
+  border-top: 1px solid var(--ccc-line-dark);
+  padding: 1.25rem 2rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.audioMonitor {
+  padding: 0.75rem 1rem;
+  background-color: #111110;
+  border: 1px solid var(--ccc-line-dark);
+  border-radius: var(--radius-sm);
+}
+
+.vuMeter {
+  display: flex;
+  gap: 4px;
+  height: 18px;
+  align-items: flex-end;
+}
+
+.vuBar {
+  width: 4px;
+  background-color: var(--ccc-accent);
+}
+
+.vuBar:nth-child(1) { height: 40%; }
+.vuBar:nth-child(2) { height: 75%; }
+.vuBar:nth-child(3) { height: 60%; }
+.vuBar:nth-child(4) { height: 90%; }
+
+/* Frame corners */
+.corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--ccc-accent);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.cornerTL {
+  top: 8px;
+  left: 8px;
+  border-width: 1px 0 0 1px;
+}
+
+.cornerTR {
+  top: 8px;
+  right: 8px;
+  border-width: 1px 1px 0 0;
+}
+
+.cornerBL {
+  bottom: 8px;
+  left: 8px;
+  border-width: 0 0 1px 1px;
+}
+
+.cornerBR {
+  bottom: 8px;
+  right: 8px;
+  border-width: 0 1px 1px 0;
+}

@@ -1,0 +1,321 @@
+/*
+ * CCC Global Styles & Design Tokens
+ * ----------------------------------
+ * Covai Creative Corner — cinematic, editorial, premium
+ * NO GRADIENTS. Solid colours only.
+ */
+
+/* ========================================
+   Google Fonts — loaded via next/font in layout.tsx
+   Fallback declarations for CSS usage
+   ======================================== */
+
+:root {
+  /* ── Colour Tokens ── */
+  --ccc-ink: #111110;
+  --ccc-panel: #1B1B19;
+  --ccc-paper: #F1EEE7;
+  --ccc-muted: #B8B3AA;
+  --ccc-ink-muted: #5E5A54;
+  --ccc-accent: #C77A4B;
+  --ccc-accent-hover: #D4895A;
+  --ccc-line-dark: rgba(241, 238, 231, 0.16);
+  --ccc-line-light: rgba(17, 17, 16, 0.16);
+
+  /* ── Typography Scale (fluid with clamp) ── */
+  --font-display: var(--font-dm-serif), 'Georgia', 'Times New Roman', serif;
+  --font-sans: var(--font-manrope), 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), 'Consolas', 'Courier New', monospace;
+
+  --text-xs: clamp(0.6875rem, 0.65rem + 0.15vw, 0.75rem);      /* ~11-12px */
+  --text-sm: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);          /* ~12-14px */
+  --text-base: clamp(0.9375rem, 0.88rem + 0.25vw, 1.0625rem);   /* ~15-17px */
+  --text-lg: clamp(1.0625rem, 0.95rem + 0.45vw, 1.25rem);       /* ~17-20px */
+  --text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);            /* ~20-24px */
+  --text-2xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);              /* ~24-32px */
+  --text-3xl: clamp(1.875rem, 1.4rem + 1.8vw, 2.75rem);         /* ~30-44px */
+  --text-4xl: clamp(2.25rem, 1.5rem + 3vw, 3.75rem);            /* ~36-60px */
+  --text-5xl: clamp(2.75rem, 1.6rem + 4.5vw, 5rem);             /* ~44-80px */
+  --text-hero: clamp(3rem, 1.5rem + 6vw, 6.5rem);               /* ~48-104px */
+
+  /* ── Spacing Scale ── */
+  --space-xs: clamp(0.25rem, 0.2rem + 0.2vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 0.4rem + 0.4vw, 0.75rem);
+  --space-md: clamp(1rem, 0.8rem + 0.8vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 1rem + 2vw, 3rem);
+  --space-xl: clamp(2rem, 1.2rem + 3vw, 4rem);
+  --space-2xl: clamp(3rem, 1.5rem + 5vw, 6rem);
+  --space-3xl: clamp(4rem, 2rem + 7vw, 9rem);
+  --space-section: clamp(5rem, 3rem + 8vw, 10rem);
+
+  /* ── Layout ── */
+  --max-width: 1400px;
+  --content-padding: clamp(1.25rem, 0.8rem + 1.5vw, 3rem);
+  --grid-gap: clamp(1rem, 0.6rem + 1.5vw, 2rem);
+  --header-height: 4.5rem;
+
+  /* ── Transitions ── */
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --duration-fast: 180ms;
+  --duration-base: 240ms;
+  --duration-slow: 500ms;
+  --duration-reveal: 650ms;
+
+  /* ── Border radius ── */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+}
+
+/* ========================================
+   Reset & Base
+   ======================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  color: var(--ccc-paper);
+  background-color: var(--ccc-ink);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ========================================
+   Typography Base
+   ======================================== */
+
+h1, h2, h3, h4 {
+  line-height: 1.15;
+  font-weight: 400;
+  text-wrap: balance;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+}
+
+h4 {
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+p {
+  max-width: 65ch;
+  text-wrap: pretty;
+}
+
+/* ========================================
+   Utility Classes
+   ======================================== */
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ccc-accent);
+  font-weight: 400;
+}
+
+.eyebrow-light {
+  color: var(--ccc-ink-muted);
+}
+
+.section-dark {
+  background-color: var(--ccc-ink);
+  color: var(--ccc-paper);
+}
+
+.section-panel {
+  background-color: var(--ccc-panel);
+  color: var(--ccc-paper);
+}
+
+.section-light {
+  background-color: var(--ccc-paper);
+  color: var(--ccc-ink);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--content-padding);
+  padding-right: var(--content-padding);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ========================================
+   Link & Button Base
+   ======================================== */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  color: inherit;
+}
+
+/* ========================================
+   Focus Styles
+   ======================================== */
+
+:focus-visible {
+  outline: 2px solid var(--ccc-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ========================================
+   Selection
+   ======================================== */
+
+::selection {
+  background-color: var(--ccc-accent);
+  color: var(--ccc-ink);
+}
+
+/* ========================================
+   Scrollbar (subtle)
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ccc-ink);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ccc-line-dark);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ccc-muted);
+}
+
+/* ========================================
+   Film Grain Overlay (very subtle, decorative)
+   ======================================== */
+
+.grain-overlay::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain-overlay::after {
+    display: none;
+  }
+}
+
+/* ========================================
+   Motion Reveal Base
+   ======================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--duration-reveal) var(--ease-out),
+              transform var(--duration-reveal) var(--ease-out);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ========================================
+   Thin Rules
+   ======================================== */
+
+.rule-dark {
+  border: none;
+  height: 1px;
+  background-color: var(--ccc-line-dark);
+}
+
+.rule-light {
+  border: none;
+  height: 1px;
+  background-color: var(--ccc-line-light);
+}
