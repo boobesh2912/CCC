@@ -15,7 +15,7 @@ export default function OpengraphImage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          backgroundColor: '#111110',
+          backgroundColor: '#110F0E',
           padding: '72px 80px',
           color: '#F1EEE7',
           fontFamily: 'Georgia, serif',
@@ -32,10 +32,10 @@ export default function OpengraphImage() {
           }}
         >
           <span>COVAI CREATIVE CORNER</span>
-          <span style={{ color: '#C77A4B' }}>RECORD / CREATE / PUBLISH</span>
+          <span style={{ color: '#FF6A00' }}>RECORD / CREATE / PUBLISH</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ width: 96, height: 3, backgroundColor: '#C77A4B', marginBottom: 36 }} />
+          <div style={{ width: 96, height: 3, backgroundColor: '#FF6A00', marginBottom: 36 }} />
           <div style={{ fontSize: 96, lineHeight: 1.04, maxWidth: 900 }}>
             Make room for a better story.
           </div>

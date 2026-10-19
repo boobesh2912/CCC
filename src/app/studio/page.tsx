@@ -140,7 +140,7 @@ export default function StudioPage() {
       </section>
 
       {/* 3. SUITABLE USE CASES */}
-      <section className={styles.useCasesSection}>
+      <section id="use-cases" className={styles.useCasesSection}>
         <div className="container">
           <MotionReveal direction="up">
             <SectionEyebrow text="USE CASES" />
@@ -214,7 +214,7 @@ export default function StudioPage() {
       </section>
 
       {/* 6. STUDIO SPECIFIC FAQS */}
-      <section className={styles.faqSection}>
+      <section id="studio-faqs" className={styles.faqSection}>
         <div className="container">
           <div className={styles.faqHeaderWrap}>
             <MotionReveal direction="up">
@@ -242,7 +242,7 @@ export default function StudioPage() {
                 <WhatsAppCTA
                   href={getStudioBookingUrl()}
                   label="Ask About Studio Availability"
-                  variant="primary"
+                  variant="ink"
                   size="large"
                   analyticsEvent="studio_booking_click"
                 />

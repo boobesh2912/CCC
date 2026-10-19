@@ -210,12 +210,12 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  border-top: 1px solid rgba(241, 238, 231, 0.08);
+  border-top: 1px solid rgba(250, 248, 244, 0.08);
   padding-top: 1rem;
 }
 
 .serviceSectionPaper .visualPlaceholderDetail {
-  border-top-color: rgba(17, 17, 16, 0.08);
+  border-top-color: rgba(17, 15, 14, 0.08);
 }
 
 .visualCode {
@@ -245,25 +245,29 @@
 }
 
 .closingBox {
-  background-color: var(--ccc-panel);
-  border: 1px solid var(--ccc-line-dark);
-  padding: var(--space-2xl) var(--space-xl);
+  background-color: var(--ccc-accent);
+  color: var(--ccc-ink);
+  border: none;
+  padding: var(--space-2xl) clamp(1.1rem, 4vw, 4rem);
   text-align: center;
   max-width: 800px;
   margin: 0 auto;
+  border-radius: var(--radius-xl);
+  box-shadow: 10px 10px 0 var(--ccc-yellow);
 }
 
 .closingTitle {
   font-family: var(--font-display);
-  font-size: var(--text-4xl);
-  color: var(--ccc-paper);
+  color: var(--ccc-ink);
   margin-top: var(--space-xs);
   margin-bottom: var(--space-sm);
+  font-size: clamp(2rem, 1rem + 6.5vw, 5rem);
+  overflow-wrap: anywhere;
 }
 
 .closingText {
   font-size: var(--text-base);
-  color: var(--ccc-muted);
+  color: var(--ccc-ink);
   max-width: 50ch;
   margin: 0 auto var(--space-xl);
 }
@@ -271,4 +275,11 @@
 .closingBtn {
   display: flex;
   justify-content: center;
+}
+
+/* At-a-glance card overview */
+.glanceSection {
+  padding: var(--space-2xl) 0 var(--space-section);
+  background-color: var(--ccc-paper);
+  border-bottom: 3px solid var(--ccc-ink);
 }

@@ -132,7 +132,7 @@ export default function WorkPage() {
                 <WhatsAppCTA
                   href={getServicesEnquiryUrl()}
                   label="Discuss a Similar Project"
-                  variant="primary"
+                  variant="ink"
                   size="large"
                   analyticsEvent="services_enquiry_click"
                 />

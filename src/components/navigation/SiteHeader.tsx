@@ -1,17 +1,101 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, type CSSProperties, type KeyboardEvent } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { siteConfig } from '@/content/site';
+import { services } from '@/content/services';
 import { getStudioBookingUrl, isWhatsAppConfigured } from '@/lib/whatsapp';
 import styles from './SiteHeader.module.css';
 
+interface MenuChild {
+  label: string;
+  href: string;
+}
+
+interface MenuItem {
+  key: string;
+  label: string;
+  href: string;
+  children?: MenuChild[];
+}
+
+const menu: MenuItem[] = [
+  { key: 'home', label: 'Home', href: '/' },
+  {
+    key: 'studio',
+    label: 'Studio',
+    href: '/studio',
+    children: [
+      { label: 'Studio Rental', href: '/studio' },
+      { label: 'Production Support', href: '/studio#production' },
+      { label: 'What People Record Here', href: '/studio#use-cases' },
+      { label: 'Studio FAQs', href: '/studio#studio-faqs' },
+    ],
+  },
+  {
+    key: 'services',
+    label: 'Services',
+    href: '/services',
+    children: services.map((s) => ({ label: s.title, href: `/services#${s.id}` })),
+  },
+  { key: 'work', label: 'Work', href: '/work' },
+  { key: 'about', label: 'About', href: '/about' },
+  {
+    key: 'contact',
+    label: 'Contact',
+    href: '/contact',
+    children: [
+      { label: 'Book the Studio', href: '/contact' },
+      { label: 'Discuss a Creative Project', href: '/contact' },
+      { label: 'Send an Enquiry', href: '/contact#enquiry' },
+    ],
+  },
+];
+
+const FALLBACK_PANEL = 'services';
+
+function currentKeyFor(pathname: string): string | null {
+  const match = menu.find((m) => (m.href === '/' ? pathname === '/' : pathname.startsWith(m.href)));
+  return match ? match.key : null;
+}
+
+function ArrowIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M5 12h14M13 6l6 6-6 6"
+        stroke="currentColor"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function Wordmark({ onClick }: { onClick?: () => void }) {
+  return (
+    <Link href="/" className={styles.wordmark} aria-label="Covai Creative Corner — Home" onClick={onClick}>
+      <span className={styles.wmMain}>
+        CCC<span className={styles.wmDot}>.</span>
+      </span>
+      <span className={styles.wmSub}>Covai Creative Corner</span>
+    </Link>
+  );
+}
+
 export default function SiteHeader() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const pathname = usePathname();
+  const [hoverKey, setHoverKey] = useState<string | null>(null);
+  const [panelKey, setPanelKey] = useState(FALLBACK_PANEL);
   const [lastPathname, setLastPathname] = useState(pathname);
+
+  const openBtnRef = useRef<HTMLButtonElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const wasOpen = useRef(false);
 
   // Close menu on route change (adjusting state during render, not in an effect)
   if (pathname !== lastPathname) {
@@ -19,133 +103,176 @@ export default function SiteHeader() {
     setMenuOpen(false);
   }
 
+  const currentKey = currentKeyFor(pathname);
+  const activeKey = hoverKey ?? currentKey ?? FALLBACK_PANEL;
+  const panelItem = menu.find((m) => m.key === panelKey) ?? menu.find((m) => m.key === FALLBACK_PANEL)!;
+  const studioReady = isWhatsAppConfigured();
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Lock body scroll when menu is open
+  // Lock page scroll while the menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [menuOpen]);
 
-  const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
-
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'Escape' && menuOpen) {
-      setMenuOpen(false);
+  // Move focus into the menu when it opens, and back to the trigger when it closes
+  useEffect(() => {
+    if (menuOpen) {
+      closeBtnRef.current?.focus();
+    } else if (wasOpen.current) {
+      openBtnRef.current?.focus();
     }
+    wasOpen.current = menuOpen;
   }, [menuOpen]);
 
-  return (
-    <header
-      className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}
-      onKeyDown={handleKeyDown}
-    >
-      <a href="#main-content" className={styles.skipLink}>
-        Skip to content
-      </a>
-      <div className={styles.inner}>
-        {/* Wordmark */}
-        <Link href="/" className={styles.wordmark} aria-label="Covai Creative Corner — Home">
-          <span className={styles.wordmarkFull}>COVAI CREATIVE CORNER</span>
-          <span className={styles.wordmarkCompact}>CCC</span>
-        </Link>
+  const openMenu = useCallback(() => {
+    const cur = currentKeyFor(pathname);
+    const curItem = menu.find((m) => m.key === cur);
+    setPanelKey(curItem?.children ? curItem.key : FALLBACK_PANEL);
+    setHoverKey(null);
+    setMenuOpen(true);
+  }, [pathname]);
 
-        {/* Desktop Navigation */}
-        <nav className={styles.desktopNav} aria-label="Main navigation">
-          {siteConfig.navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`${styles.navLink} ${pathname === item.href ? styles.active : ''}`}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-        {/* Desktop CTA */}
-        <div className={styles.desktopCta}>
-          <Link href="/contact" className={styles.headerCta}>
-            Start a Project
-          </Link>
-        </div>
-
-        {/* Mobile Menu Toggle */}
-        <button
-          className={styles.menuToggle}
-          onClick={toggleMenu}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-        >
-          <span className={`${styles.menuBar} ${menuOpen ? styles.menuBarOpen1 : ''}`} />
-          <span className={`${styles.menuBar} ${menuOpen ? styles.menuBarOpen2 : ''}`} />
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        id="mobile-menu"
-        className={`${styles.mobileMenu} ${menuOpen ? styles.mobileMenuOpen : ''}`}
-        role="dialog"
-        aria-modal={menuOpen}
-        aria-label="Mobile navigation"
-      >
-        <nav className={styles.mobileNav} aria-label="Mobile navigation">
-          {siteConfig.navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`${styles.mobileNavLink} ${pathname === item.href ? styles.active : ''}`}
-              onClick={() => setMenuOpen(false)}
-            >
-              <span className={styles.mobileNavLabel}>{item.label}</span>
-            </Link>
-          ))}
-        </nav>
-        <div className={styles.mobileCtas}>
-          <Link
-            href="/contact"
-            className={styles.mobilePrimaryCta}
-            onClick={() => setMenuOpen(false)}
-          >
-            Start a Project
-          </Link>
-          {isWhatsAppConfigured() ? (
-            <a
-              href={getStudioBookingUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.mobileSecondaryCta}
-              onClick={() => setMenuOpen(false)}
-            >
-              <WhatsAppIcon />
-              Book the Studio
-            </a>
-          ) : (
-            <Link
-              href="/studio"
-              className={styles.mobileSecondaryCta}
-              onClick={() => setMenuOpen(false)}
-            >
-              Book the Studio
-            </Link>
-          )}
-        </div>
-      </div>
-    </header>
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'Escape') {
+        closeMenu();
+        return;
+      }
+      if (e.key !== 'Tab' || !overlayRef.current) return;
+      const focusable = overlayRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    },
+    [closeMenu]
   );
-}
 
-function WhatsAppIcon() {
+  const previewItem = (item: MenuItem) => {
+    setHoverKey(item.key);
+    if (item.children) setPanelKey(item.key);
+  };
+
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-    </svg>
+    <>
+      <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+        <a href="#main-content" className={styles.skipLink}>
+          Skip to content
+        </a>
+        <div className={styles.bar}>
+          <button
+            ref={openBtnRef}
+            type="button"
+            className={styles.menuBtn}
+            onClick={openMenu}
+            aria-expanded={menuOpen}
+            aria-controls="site-menu"
+            aria-haspopup="dialog"
+          >
+            <span className={styles.burger} aria-hidden="true">
+              <span />
+              <span />
+            </span>
+            <span className={styles.menuBtnLabel}>Menu</span>
+          </button>
+
+          <Wordmark />
+
+          <Link href="/contact" className={styles.contactPill} aria-label="Contact Us">
+            <span className={styles.pillLabel}>Contact Us</span>
+            <span className={styles.pillArrow}>
+              <ArrowIcon />
+            </span>
+          </Link>
+        </div>
+      </header>
+
+      <div
+        id="site-menu"
+        ref={overlayRef}
+        className={`${styles.overlay} ${menuOpen ? styles.overlayOpen : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site menu"
+        inert={!menuOpen}
+        onKeyDown={handleKeyDown}
+      >
+        <div className={styles.arc} aria-hidden="true" />
+
+        <div className={styles.overlayBar}>
+          <button ref={closeBtnRef} type="button" className={styles.closeBtn} onClick={closeMenu} aria-label="Close menu">
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+          </button>
+          <Wordmark onClick={closeMenu} />
+          <Link href="/contact" className={`${styles.contactPill} ${styles.contactPillLight}`} aria-label="Contact Us" onClick={closeMenu}>
+            <span className={styles.pillLabel}>Contact Us</span>
+            <span className={styles.pillArrow}>
+              <ArrowIcon />
+            </span>
+          </Link>
+        </div>
+
+        <div className={styles.overlayBody}>
+          <nav className={styles.mainNav} aria-label="Main navigation" onPointerLeave={() => setHoverKey(null)}>
+            <ul className={styles.navList}>
+              {menu.map((item, i) => (
+                <li key={item.key} style={{ '--i': i } as CSSProperties}>
+                  <Link
+                    href={item.href}
+                    className={`${styles.menuLink} ${activeKey === item.key ? styles.menuLinkActive : ''}`}
+                    aria-current={currentKey === item.key ? 'page' : undefined}
+                    onPointerEnter={() => previewItem(item)}
+                    onFocus={() => previewItem(item)}
+                    onClick={closeMenu}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className={styles.panel}>
+            <p className={styles.panelLabel}>{panelItem.label}</p>
+            <ul key={panelItem.key} className={styles.subList}>
+              {panelItem.children?.map((child, i) => (
+                <li key={child.label} style={{ '--i': i } as CSSProperties}>
+                  <Link href={child.href} className={styles.subLink} onClick={closeMenu}>
+                    {child.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            {studioReady ? (
+              <a href={getStudioBookingUrl()} target="_blank" rel="noopener noreferrer" className={styles.panelCta} onClick={closeMenu}>
+                Book the Studio on WhatsApp
+              </a>
+            ) : (
+              <Link href="/studio" className={styles.panelCta} onClick={closeMenu}>
+                Explore the Studio
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

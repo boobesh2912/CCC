@@ -6,8 +6,11 @@ import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import FAQAccordion from '@/components/sections/FAQAccordion';
 import HeroVisual from '@/components/sections/HeroVisual';
 import ProcessSequence from '@/components/sections/ProcessSequence';
+import ServiceCards from '@/components/sections/ServiceCards';
+import Marquee from '@/components/ui/Marquee';
+import RotatingBadge from '@/components/ui/RotatingBadge';
 import TiltFrame from '@/components/motion/TiltFrame';
-import { studioFeatures, brandFeatures, processSteps, services } from '@/content/services';
+import { studioFeatures, brandFeatures, processSteps } from '@/content/services';
 import { homeFaqs } from '@/content/faqs';
 import { getStudioBookingUrl, getServicesEnquiryUrl } from '@/lib/whatsapp';
 import styles from './page.module.css';
@@ -37,7 +40,7 @@ export default function HomePage() {
 
               <MotionReveal direction="up" delay={200} immediate>
                 <h1 className={styles.heroTitle}>
-                  Make room for a better story.
+                  Make room for a <span className={styles.heroAccent}>better story.</span>
                 </h1>
               </MotionReveal>
 
@@ -73,6 +76,7 @@ export default function HomePage() {
 
             {/* Right Asymmetrical Visual Composition */}
             <div className={styles.heroMedia}>
+              <RotatingBadge className={styles.heroBadge} />
               <MotionReveal direction="up" delay={250} immediate>
                 <ParallaxImage speed={0.04}>
                   <TiltFrame>
@@ -84,6 +88,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <Marquee items={['Podcasts', 'Video', 'Brand identity', 'Social media', 'Marketing']} />
 
       {/* 2. STUDIO INTRO */}
       <section className={styles.studioIntroSection}>
@@ -281,36 +287,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. SERVICES LIST */}
+      {/* 6. SERVICES */}
       <section className={styles.servicesSection}>
         <div className="container">
-          <MotionReveal direction="up">
-            <SectionEyebrow text="05 · SERVICES" />
-            <h2 className={styles.sectionHeading}>Creative services.</h2>
-          </MotionReveal>
-
-          <div className={styles.servicesList}>
-            {services.map((svc, i) => (
-              <MotionReveal
-                key={svc.id}
-                direction="up"
-                delay={i * 80}
-                className={styles.serviceRow}
-              >
-                <div className={styles.serviceRowIndex}>{svc.index}</div>
-                <div className={styles.serviceRowMain}>
-                  <h3 className={styles.serviceRowTitle}>{svc.title}</h3>
-                  <p className={styles.serviceRowShort}>{svc.shortDescription}</p>
-                </div>
-                <div className={styles.serviceRowAction}>
-                  <Link href={`/services#${svc.id}`} className={styles.serviceRowLink}>
-                    Details<span className="sr-only"> about {svc.title}</span>
-                    <span className={styles.rowArrow} aria-hidden="true">↗</span>
-                  </Link>
-                </div>
-              </MotionReveal>
-            ))}
+          <div className={styles.servicesHead}>
+            <MotionReveal direction="up">
+              <SectionEyebrow text="05 · SERVICES" variant="light" />
+              <h2 className={styles.servicesHeading}>Everything your story needs.</h2>
+            </MotionReveal>
+            <MotionReveal direction="up" delay={150}>
+              <Link href="/services" className={styles.pillLink}>
+                All services
+                <span aria-hidden="true">→</span>
+              </Link>
+            </MotionReveal>
           </div>
+          <ServiceCards />
         </div>
       </section>
 
@@ -380,14 +372,14 @@ export default function HomePage() {
                 <WhatsAppCTA
                   href={getStudioBookingUrl()}
                   label="Book via WhatsApp"
-                  variant="primary"
+                  variant="ink"
                   size="large"
                   analyticsEvent="studio_booking_click"
                 />
                 <WhatsAppCTA
                   href={getServicesEnquiryUrl()}
                   label="Discuss a Creative Project"
-                  variant="outline"
+                  variant="inkOutline"
                   size="large"
                   analyticsEvent="services_enquiry_click"
                 />

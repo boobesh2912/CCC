@@ -7,7 +7,7 @@ import styles from './WhatsAppCTA.module.css';
 interface WhatsAppCTAProps {
   href: string;
   label: string;
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ink' | 'inkOutline';
   analyticsEvent?: CTAEvent;
   className?: string;
   size?: 'default' | 'large';

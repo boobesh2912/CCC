@@ -1,7 +1,7 @@
 /*
  * CCC Global Styles & Design Tokens
  * ----------------------------------
- * Covai Creative Corner — cinematic, editorial, premium
+ * Covai Creative Corner — bold, vibrant, premium
  * NO GRADIENTS. Solid colours only.
  */
 
@@ -11,19 +11,22 @@
    ======================================== */
 
 :root {
-  /* ── Colour Tokens ── */
-  --ccc-ink: #111110;
-  --ccc-panel: #1B1B19;
-  --ccc-paper: #F1EEE7;
-  --ccc-muted: #B8B3AA;
-  --ccc-ink-muted: #5E5A54;
-  --ccc-accent: #C77A4B;
-  --ccc-accent-hover: #D4895A;
-  --ccc-line-dark: rgba(241, 238, 231, 0.16);
-  --ccc-line-light: rgba(17, 17, 16, 0.16);
+  /* ── Colour Tokens (solid colours only — no gradients) ── */
+  --ccc-ink: #110F0E;
+  --ccc-panel: #1C1917;
+  --ccc-paper: #FAF8F4;
+  --ccc-muted: #C4BEB5;
+  --ccc-ink-muted: #5A554F;
+  --ccc-accent: #FF6A00;
+  --ccc-accent-hover: #FF8226;
+  --ccc-yellow: #FFC93C;
+  --ccc-pink: #FF3D8B;
+  --ccc-accent-ink: #E85A00; /* orange text on light backgrounds */
+  --ccc-line-dark: rgba(250, 248, 244, 0.16);
+  --ccc-line-light: rgba(17, 15, 14, 0.14);
 
   /* ── Typography Scale (fluid with clamp) ── */
-  --font-display: var(--font-dm-serif), 'Georgia', 'Times New Roman', serif;
+  --font-display: var(--font-bricolage), 'Segoe UI', system-ui, sans-serif;
   --font-sans: var(--font-manrope), 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-ibm-plex-mono), 'Consolas', 'Courier New', monospace;
 
@@ -52,7 +55,7 @@
   --max-width: 1400px;
   --content-padding: clamp(1.25rem, 0.8rem + 1.5vw, 3rem);
   --grid-gap: clamp(1rem, 0.6rem + 1.5vw, 2rem);
-  --header-height: 4.5rem;
+  --header-height: 5.25rem;
 
   /* ── Transitions ── */
   --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -63,9 +66,11 @@
   --duration-reveal: 650ms;
 
   /* ── Border radius ── */
-  --radius-sm: 3px;
-  --radius-md: 6px;
-  --radius-lg: 10px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-xl: 36px;
+  --radius-pill: 999px;
 }
 
 /* ========================================
@@ -81,6 +86,7 @@
 }
 
 html {
+  scroll-padding-top: calc(var(--header-height) + 1rem);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -117,26 +123,28 @@ body {
    ======================================== */
 
 h1, h2, h3, h4 {
-  line-height: 1.15;
-  font-weight: 400;
+  line-height: 1.05;
+  font-weight: 700;
   text-wrap: balance;
 }
 
 h1 {
   font-family: var(--font-display);
   font-size: var(--text-hero);
-  letter-spacing: -0.02em;
+  font-weight: 800;
+  letter-spacing: -0.045em;
 }
 
 h2 {
   font-family: var(--font-display);
   font-size: var(--text-4xl);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.04em;
 }
 
 h3 {
   font-family: var(--font-display);
   font-size: var(--text-2xl);
+  letter-spacing: -0.03em;
 }
 
 h4 {
@@ -341,4 +349,139 @@ button {
   border: none;
   height: 1px;
   background-color: var(--ccc-line-light);
+}
+
+
+/* ========================================
+   Preloader (CSS only) & page entrance
+   ======================================== */
+
+.ccc-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display: grid;
+  place-items: center;
+  background-color: var(--ccc-accent);
+  color: var(--ccc-ink);
+  pointer-events: none;
+  animation: preloader-exit 900ms cubic-bezier(0.76, 0, 0.24, 1) 1.9s forwards;
+}
+
+.no-preload .ccc-preloader {
+  display: none;
+}
+
+.ccc-preloader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.ccc-preloader__mark {
+  display: flex;
+  overflow: hidden;
+  padding: 0 0.1em;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(5rem, 22vw, 12rem);
+  line-height: 0.95;
+  letter-spacing: -0.07em;
+}
+
+.ccc-preloader__mark span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: preloader-letter 800ms var(--ease-out-expo) forwards;
+  animation-delay: calc(150ms + var(--i, 0) * 110ms);
+}
+
+.ccc-preloader__dot {
+  color: var(--ccc-paper);
+}
+
+.ccc-preloader__tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: preloader-fade 600ms ease-out 700ms forwards;
+}
+
+.ccc-preloader__bar {
+  width: min(16rem, 60vw);
+  height: 6px;
+  border-radius: 6px;
+  background-color: rgba(17, 15, 14, 0.2);
+  overflow: hidden;
+}
+
+.ccc-preloader__bar span {
+  display: block;
+  height: 100%;
+  background-color: var(--ccc-ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: preloader-fill 1500ms cubic-bezier(0.65, 0, 0.35, 1) 300ms forwards;
+}
+
+@keyframes preloader-letter {
+  to {
+    transform: none;
+  }
+}
+
+@keyframes preloader-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes preloader-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes preloader-exit {
+  0% {
+    transform: translateY(0);
+    border-radius: 0;
+  }
+  99% {
+    visibility: visible;
+  }
+  100% {
+    transform: translateY(-100%);
+    border-radius: 0 0 50% 50% / 0 0 16vh 16vh;
+    visibility: hidden;
+  }
+}
+
+/* Hold the hero entrance until the preloader has lifted */
+.preloading .reveal-now {
+  animation-delay: calc(2.35s + var(--reveal-delay, 0ms));
+}
+
+.page-enter {
+  animation: page-enter 650ms var(--ease-out-expo) backwards;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ccc-preloader {
+    display: none;
+  }
+
+  .page-enter {
+    animation: none;
+  }
 }

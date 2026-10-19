@@ -69,7 +69,7 @@
   height: 120px;
   border-radius: 50%;
   background-color: #2a221a;
-  border: 1px solid rgba(199, 122, 75, 0.2);
+  border: 1px solid rgba(255, 106, 0, 0.2);
 }
 
 .slatWall {
@@ -121,7 +121,7 @@
   left: 122px;
   width: 16px;
   height: 45px;
-  background-color: #111110;
+  background-color: #110F0E;
   border: 1px solid #44413c;
   border-radius: 2px;
 }
@@ -147,7 +147,7 @@
 
 .audioMonitor {
   padding: 0.75rem 1rem;
-  background-color: #111110;
+  background-color: #110F0E;
   border: 1px solid var(--ccc-line-dark);
   border-radius: var(--radius-sm);
 }

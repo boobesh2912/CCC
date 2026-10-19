@@ -159,7 +159,7 @@ export default function AboutPage() {
                 <WhatsAppCTA
                   href={getServicesEnquiryUrl()}
                   label="Discuss a Creative Project"
-                  variant="primary"
+                  variant="ink"
                   size="large"
                   analyticsEvent="services_enquiry_click"
                 />

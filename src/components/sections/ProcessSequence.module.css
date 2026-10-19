@@ -63,6 +63,7 @@
   height: 100%;
   background-color: var(--ccc-panel);
   border: 1px solid var(--ccc-line-dark);
+  border-radius: var(--radius-lg);
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -70,7 +71,7 @@
 }
 
 .step[data-active] .stepInner {
-  border-color: rgba(199, 122, 75, 0.45);
+  border-color: rgba(255, 106, 0, 0.45);
 }
 
 .stepTop {
@@ -116,7 +117,7 @@
   padding-top: var(--space-md);
   display: block;
   height: 2px;
-  background-color: rgba(241, 238, 231, 0.08);
+  background-color: rgba(250, 248, 244, 0.08);
   background-clip: content-box;
   transition: background-color var(--duration-base) var(--ease-out);
 }

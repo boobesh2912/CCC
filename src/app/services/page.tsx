@@ -1,6 +1,7 @@
 import MotionReveal from '@/components/motion/MotionReveal';
 import WhatsAppCTA from '@/components/ui/WhatsAppCTA';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
+import ServiceCards from '@/components/sections/ServiceCards';
 import { services } from '@/content/services';
 import { getServicesEnquiryUrl } from '@/lib/whatsapp';
 import styles from './services.module.css';
@@ -26,6 +27,13 @@ export default function ServicesPage() {
               support it needs to show up with intention.
             </p>
           </MotionReveal>
+        </div>
+      </section>
+
+      {/* 2. AT A GLANCE — cards linking to the detail sections below */}
+      <section className={styles.glanceSection} aria-label="Services at a glance">
+        <div className="container">
+          <ServiceCards />
         </div>
       </section>
 
@@ -116,7 +124,7 @@ export default function ServicesPage() {
                 <WhatsAppCTA
                   href={getServicesEnquiryUrl()}
                   label="Discuss a Creative Project"
-                  variant="primary"
+                  variant="ink"
                   size="large"
                   analyticsEvent="services_enquiry_click"
                 />

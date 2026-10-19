@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
-import { DM_Serif_Display, Manrope, IBM_Plex_Mono } from 'next/font/google';
+import { Bricolage_Grotesque, Manrope, IBM_Plex_Mono } from 'next/font/google';
 import '@/styles/globals.css';
 import SiteHeader from '@/components/navigation/SiteHeader';
 import ContactFooter from '@/components/navigation/ContactFooter';
+import Preloader from '@/components/ui/Preloader';
 import { siteConfig } from '@/content/site';
 
-const dmSerif = DM_Serif_Display({
-  weight: '400',
+const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-dm-serif',
+  variable: '--font-bricolage',
 });
 
 const manrope = Manrope({
@@ -62,16 +62,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSerif.variable} ${manrope.variable} ${ibmPlexMono.variable}`}
+      className={`${bricolage.variable} ${manrope.variable} ${ibmPlexMono.variable}`}
       suppressHydrationWarning
     >
       <head>
-        {/* Marks JS as available so scroll reveals can hide content until it enters view. */}
+        {/* Marks JS as available (scroll reveals) and tracks whether the preloader has already played this session. */}
         <script
-          dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }}
+          dangerouslySetInnerHTML={{ __html: "(function(d){var c=d.documentElement.classList;c.add('js');try{if(sessionStorage.getItem('ccc-seen')){c.add('no-preload')}else{sessionStorage.setItem('ccc-seen','1');c.add('preloading')}}catch(e){c.add('preloading')}})(document)" }}
         />
       </head>
       <body className="grain-overlay">
+        <Preloader />
         <SiteHeader />
         <main id="main-content">{children}</main>
         <ContactFooter />

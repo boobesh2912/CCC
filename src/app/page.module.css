@@ -53,7 +53,8 @@
   line-height: 1.05;
   color: var(--ccc-paper);
   margin-bottom: var(--space-md);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.05em;
+  font-weight: 800;
 }
 
 .heroSubtitle {
@@ -116,8 +117,47 @@
   opacity: 0.7;
 }
 
+/* decorative solid shapes behind the hero visual */
 .heroMedia {
+  position: relative;
+  isolation: isolate;
   width: 100%;
+}
+
+.heroMedia::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 78%;
+  aspect-ratio: 1;
+  right: -7%;
+  top: -22%;
+  border-radius: 50%;
+  background-color: var(--ccc-accent);
+}
+
+.heroMedia::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 18%;
+  aspect-ratio: 1;
+  left: -5%;
+  bottom: -12%;
+  border-radius: 50%;
+  background-color: var(--ccc-pink);
+}
+
+.heroBadge {
+  position: absolute;
+  z-index: 2;
+  left: -4%;
+  top: -12%;
+  transform: rotate(-8deg);
+}
+
+.heroAccent {
+  color: var(--ccc-accent);
 }
 
 /* 2. STUDIO INTRO */
@@ -232,6 +272,7 @@
 .wayCardDark {
   background-color: var(--ccc-ink);
   border: 1px solid var(--ccc-line-dark);
+  border-radius: var(--radius-lg);
   padding: var(--space-xl);
   display: flex;
   flex-direction: column;
@@ -412,6 +453,7 @@
 .capVisualAspectSquare {
   background-color: var(--ccc-panel);
   border: 1px solid var(--ccc-line-dark);
+  border-radius: var(--radius-lg);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -475,63 +517,51 @@
   color: var(--ccc-accent);
 }
 
-/* 6. SERVICES LIST */
+/* 6. SERVICES (cards on a light panel) */
 .servicesSection {
   padding: var(--space-section) 0;
-  background-color: var(--ccc-panel);
-  border-bottom: 1px solid var(--ccc-line-dark);
+  background-color: var(--ccc-paper);
+  color: var(--ccc-ink);
+  border-bottom: 3px solid var(--ccc-ink);
 }
 
-.servicesList {
+.servicesHead {
   display: flex;
-  flex-direction: column;
-  margin-top: var(--space-xl);
-  border-top: 1px solid var(--ccc-line-dark);
-}
-
-.serviceRow {
-  display: grid;
-  grid-template-columns: 50px 1fr auto;
-  align-items: baseline;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
   gap: var(--space-md);
-  padding: var(--space-lg) 0;
-  border-bottom: 1px solid var(--ccc-line-dark);
-  transition: background-color var(--duration-fast) var(--ease-out);
+  margin-bottom: var(--space-xl);
 }
 
-.serviceRow:hover {
-  background-color: rgba(241, 238, 231, 0.02);
-}
-
-.serviceRowIndex {
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  color: var(--ccc-accent);
-}
-
-.serviceRowTitle {
+.servicesHeading {
   font-family: var(--font-display);
-  font-size: var(--text-2xl);
-  color: var(--ccc-paper);
-  margin-bottom: 0.25rem;
+  font-weight: 800;
+  font-size: var(--text-5xl);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  color: var(--ccc-ink);
+  margin-top: var(--space-xs);
+  max-width: 14ch;
 }
 
-.serviceRowShort {
-  font-size: var(--text-sm);
-  color: var(--ccc-muted);
-}
-
-.serviceRowLink {
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  color: var(--ccc-muted);
+.pillLink {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.6rem;
+  min-height: 52px;
+  padding: 0 1.6rem;
+  border: 2px solid var(--ccc-ink);
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  color: var(--ccc-ink);
+  transition: background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
 }
 
-.serviceRow:hover .serviceRowLink {
-  color: var(--ccc-accent);
+.pillLink:hover {
+  background-color: var(--ccc-ink);
+  color: var(--ccc-paper);
 }
 
 /* 7. PHILOSOPHY */
@@ -601,33 +631,37 @@
 }
 
 .closingCard {
-  background-color: var(--ccc-panel);
-  border: 1px solid var(--ccc-line-dark);
-  padding: var(--space-2xl) var(--space-xl);
+  background-color: var(--ccc-accent);
+  color: var(--ccc-ink);
+  border: none;
+  padding: var(--space-2xl) clamp(1.1rem, 4vw, 4rem);
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
+  border-radius: var(--radius-xl);
+  box-shadow: 10px 10px 0 var(--ccc-yellow);
 }
 
 .closingEyebrow {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.16em;
-  color: var(--ccc-accent);
+  color: var(--ccc-ink);
   display: block;
   margin-bottom: var(--space-sm);
 }
 
 .closingHeadline {
   font-family: var(--font-display);
-  font-size: var(--text-4xl);
-  color: var(--ccc-paper);
+  color: var(--ccc-ink);
   margin-bottom: var(--space-sm);
+  font-size: clamp(2rem, 1rem + 6.5vw, 5rem);
+  overflow-wrap: anywhere;
 }
 
 .closingCopy {
   font-size: var(--text-base);
-  color: var(--ccc-muted);
+  color: var(--ccc-ink);
   max-width: 50ch;
   margin: 0 auto var(--space-xl);
 }
@@ -643,8 +677,8 @@
 .closingDisclaimer {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--ccc-muted);
-  opacity: 0.6;
+  color: var(--ccc-ink);
+  opacity: 0.75;
   max-width: 60ch;
   margin: 0 auto;
 }
