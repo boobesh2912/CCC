@@ -3,8 +3,8 @@ import { siteConfig } from '@/content/site';
 /**
  * WhatsApp click-to-chat URL builder.
  *
- * ⚠️  A click opens a WhatsApp conversation — it does NOT confirm a booking.
- *     CTA copy must never imply a completed reservation.
+ * A click opens a WhatsApp conversation — it does NOT confirm anything.
+ * CTA copy must never imply a completed booking or purchase.
  */
 
 const WHATSAPP_BASE = 'https://wa.me/';
@@ -31,25 +31,24 @@ export function buildWhatsAppUrl(message?: string): string {
   return `${base}?text=${encodeURIComponent(message)}`;
 }
 
-/** Prefilled message for studio booking enquiry */
-export const studioBookingMessage = `Hi CCC, I'm interested in booking the studio.
-Type of session: [Podcast / Video shoot / Other]
-Preferred date: [Date]
-Preferred time: [Time]
-Support needed: [Studio only / Production support]`;
-
-/** Prefilled message for creative/business services enquiry */
-export const servicesEnquiryMessage = `Hi CCC, I'd like to discuss a creative project.
+/** Prefilled message for a general services enquiry. */
+export const servicesEnquiryMessage = `Hi CCC, I'd like to discuss a project.
 Business/brand: [Name]
-What I need help with: [Content strategy / Production / Branding / Social media / Marketing / Other]
+I'm interested in: [Personal Branding / Digital Marketing / Both]
+Monthly budget: [Approximate budget]
 Brief overview: [A few details]`;
 
-export function getStudioBookingUrl(): string {
-  return buildWhatsAppUrl(studioBookingMessage);
-}
+/** Prefilled message for the studio waiting list. */
+export const studioWaitlistMessage = `Hi CCC, please let me know when the studio opens.
+Name: [Name]
+I'm interested in using it for: [Podcast / Video shoot / Other]`;
 
 export function getServicesEnquiryUrl(): string {
   return buildWhatsAppUrl(servicesEnquiryMessage);
+}
+
+export function getStudioWaitlistUrl(): string {
+  return buildWhatsAppUrl(studioWaitlistMessage);
 }
 
 export function isWhatsAppConfigured(): boolean {

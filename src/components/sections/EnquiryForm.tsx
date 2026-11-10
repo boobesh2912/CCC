@@ -1,84 +1,95 @@
 'use client';
 
-import { useId, useState, type FormEvent } from 'react';
+import { useId, useState, type FormEvent, type ReactNode } from 'react';
 import { trackCTAClick } from '@/lib/analytics';
 import { buildWhatsAppUrl, isWhatsAppConfigured } from '@/lib/whatsapp';
 import styles from './EnquiryForm.module.css';
 
-type EnquiryType = 'studio' | 'project';
+const INTERESTS = ['Personal Branding', 'Digital Marketing', 'Both', 'Not sure yet'] as const;
+
+const NEEDS = [
+  'Content strategy',
+  'Scripting',
+  'Shooting',
+  'Editing',
+  'Instagram',
+  'YouTube',
+  'LinkedIn',
+  'Website',
+  'Meta Ads',
+  'Google Ads',
+  'SEO',
+  'Paid marketing',
+] as const;
+
+const READY_OPTIONS = [
+  'Yes, ₹30,000 or more',
+  "Not yet, I'm starting smaller",
+  'Not sure, I need guidance',
+] as const;
+
+const BUDGETS = [
+  'Under ₹10,000',
+  '₹10,000 – ₹30,000',
+  '₹30,000 – ₹60,000',
+  '₹60,000 – ₹1,00,000',
+  'Above ₹1,00,000',
+  'Not sure yet',
+] as const;
 
 interface FormValues {
   name: string;
-  sessionType: string;
-  date: string;
-  time: string;
-  duration: string;
-  support: string;
   brand: string;
-  need: string;
+  interest: string;
+  needs: string[];
+  ready: string;
+  budget: string;
   overview: string;
 }
 
 const initialValues: FormValues = {
   name: '',
-  sessionType: '',
-  date: '',
-  time: '',
-  duration: '',
-  support: '',
   brand: '',
-  need: '',
+  interest: '',
+  needs: [],
+  ready: '',
+  budget: '',
   overview: '',
 };
 
 type Errors = Partial<Record<keyof FormValues, string>>;
 
-function validate(type: EnquiryType, v: FormValues): Errors {
+function validate(v: FormValues): Errors {
   const errors: Errors = {};
   if (!v.name.trim()) errors.name = 'Please add your name.';
-  if (type === 'studio') {
-    if (!v.sessionType) errors.sessionType = 'Choose the type of session.';
-    if (!v.date) errors.date = 'Choose a preferred date.';
-    if (!v.support) errors.support = 'Choose the support you need.';
-  } else {
-    if (!v.need) errors.need = 'Choose what you need help with.';
-    if (v.overview.trim().length < 10) errors.overview = 'Add a sentence or two about the project.';
-  }
+  if (!v.interest) errors.interest = 'Choose what you are interested in.';
+  if (!v.ready) errors.ready = 'Let us know how you are thinking about budget.';
+  if (!v.budget) errors.budget = 'Choose an approximate monthly budget.';
+  if (v.overview.trim().length < 10) errors.overview = 'Add a sentence or two about your brand and goals.';
   return errors;
 }
 
-function buildMessage(type: EnquiryType, v: FormValues): string {
-  if (type === 'studio') {
-    return [
-      "Hi CCC, I'm interested in booking the studio.",
-      `Name: ${v.name.trim()}`,
-      `Type of session: ${v.sessionType}`,
-      `Preferred date: ${v.date}`,
-      v.time && `Preferred time: ${v.time}`,
-      v.duration.trim() && `Approximate duration: ${v.duration.trim()}`,
-      `Support needed: ${v.support}`,
-    ]
-      .filter(Boolean)
-      .join('\n');
-  }
+function buildMessage(v: FormValues): string {
   return [
-    "Hi CCC, I'd like to discuss a creative project.",
+    "Hi CCC, I'd like to discuss a project.",
     `Name: ${v.name.trim()}`,
     v.brand.trim() && `Business/brand: ${v.brand.trim()}`,
-    `What I need help with: ${v.need}`,
-    `Brief overview: ${v.overview.trim()}`,
+    `Interested in: ${v.interest}`,
+    v.needs.length > 0 && `Needs: ${v.needs.join(', ')}`,
+    `Ready to invest ₹30,000+ per month: ${v.ready}`,
+    `Approximate monthly budget: ${v.budget}`,
+    `Overview: ${v.overview.trim()}`,
   ]
     .filter(Boolean)
     .join('\n');
 }
 
 /**
- * Short enquiry form that prepares a WhatsApp message on the visitor's device.
- * Nothing is submitted to a server; the visitor sends the message themselves.
+ * Enquiry form that prepares a WhatsApp message on the visitor's device.
+ * Nothing is submitted to a server; the visitor reviews and sends the message themselves.
  */
 export default function EnquiryForm() {
   const uid = useId();
-  const [type, setType] = useState<EnquiryType>('studio');
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<Errors>({});
   const [opened, setOpened] = useState(false);
@@ -86,14 +97,21 @@ export default function EnquiryForm() {
 
   const id = (field: string) => `${uid}-${field}`;
 
-  function set<K extends keyof FormValues>(field: K, value: string) {
+  function set<K extends keyof FormValues>(field: K, value: FormValues[K]) {
     setValues((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
   }
 
+  function toggleNeed(need: string) {
+    set(
+      'needs',
+      values.needs.includes(need) ? values.needs.filter((n) => n !== need) : [...values.needs, need]
+    );
+  }
+
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const found = validate(type, values);
+    const found = validate(values);
     setErrors(found);
     const firstError = Object.keys(found)[0];
     if (firstError) {
@@ -102,211 +120,169 @@ export default function EnquiryForm() {
     }
     if (!configured) return;
 
-    trackCTAClick(type === 'studio' ? 'studio_booking_click' : 'services_enquiry_click');
-    window.open(buildWhatsAppUrl(buildMessage(type, values)), '_blank', 'noopener,noreferrer');
+    trackCTAClick('services_enquiry_click');
+    window.open(buildWhatsAppUrl(buildMessage(values)), '_blank', 'noopener,noreferrer');
     setOpened(true);
   }
 
-  function fieldProps(field: keyof FormValues) {
-    const hasError = Boolean(errors[field]);
-    return {
-      id: id(field),
-      name: field,
-      value: values[field],
-      'aria-invalid': hasError || undefined,
-      'aria-describedby': hasError ? id(`${field}-error`) : undefined,
-    };
-  }
+  const errorId = (field: string) => id(`${field}-error`);
+  const describedBy = (field: keyof FormValues) => (errors[field] ? errorId(field) : undefined);
 
-  function errorText(field: keyof FormValues) {
+  function errorText(field: keyof FormValues): ReactNode {
     return errors[field] ? (
-      <p id={id(`${field}-error`)} className={styles.error}>
+      <p id={errorId(field)} className={styles.error}>
         {errors[field]}
       </p>
     ) : null;
   }
 
+  function radioGroup(
+    field: 'interest' | 'ready',
+    legend: string,
+    options: readonly string[],
+    hint?: string
+  ) {
+    return (
+      <fieldset className={styles.group} aria-describedby={describedBy(field)}>
+        <legend className={styles.legend}>{legend}</legend>
+        {hint && <p className={styles.hint}>{hint}</p>}
+        <div className={styles.chips}>
+          {options.map((option, i) => (
+            <label key={option} className={styles.chip}>
+              <input
+                id={i === 0 ? id(field) : undefined}
+                type="radio"
+                name={field}
+                value={option}
+                checked={values[field] === option}
+                onChange={() => set(field, option)}
+              />
+              <span>{option}</span>
+            </label>
+          ))}
+        </div>
+        {errorText(field)}
+      </fieldset>
+    );
+  }
+
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
-      <fieldset className={styles.typeSwitch}>
-        <legend className={styles.legend}>What are you enquiring about?</legend>
-        <div className={styles.typeOptions}>
-          {(
-            [
-              ['studio', 'A studio session'],
-              ['project', 'A creative project'],
-            ] as const
-          ).map(([value, label]) => (
-            <label key={value} className={styles.typeOption}>
+      <div className={styles.grid}>
+        <div className={styles.field}>
+          <label htmlFor={id('name')} className={styles.label}>
+            Your name
+          </label>
+          <input
+            id={id('name')}
+            name="name"
+            type="text"
+            autoComplete="name"
+            className={styles.input}
+            value={values.name}
+            onChange={(e) => set('name', e.target.value)}
+            aria-invalid={errors.name ? true : undefined}
+            aria-describedby={describedBy('name')}
+          />
+          {errorText('name')}
+        </div>
+
+        <div className={styles.field}>
+          <label htmlFor={id('brand')} className={styles.label}>
+            Business or brand <span className={styles.optional}>(optional)</span>
+          </label>
+          <input
+            id={id('brand')}
+            name="brand"
+            type="text"
+            autoComplete="organization"
+            className={styles.input}
+            value={values.brand}
+            onChange={(e) => set('brand', e.target.value)}
+          />
+        </div>
+      </div>
+
+      {radioGroup('interest', 'What are you interested in?', INTERESTS)}
+
+      <fieldset className={styles.group}>
+        <legend className={styles.legend}>
+          What do you need help with? <span className={styles.optional}>(optional, pick any)</span>
+        </legend>
+        <div className={styles.chips}>
+          {NEEDS.map((need) => (
+            <label key={need} className={styles.chip}>
               <input
-                type="radio"
-                name="enquiryType"
-                value={value}
-                checked={type === value}
-                onChange={() => {
-                  setType(value);
-                  setErrors({});
-                  setOpened(false);
-                }}
+                type="checkbox"
+                name="needs"
+                value={need}
+                checked={values.needs.includes(need)}
+                onChange={() => toggleNeed(need)}
               />
-              <span>{label}</span>
+              <span>{need}</span>
             </label>
           ))}
         </div>
       </fieldset>
 
-      <div className={styles.grid}>
-        <div className={styles.fieldWide}>
-          <label htmlFor={id('name')} className={styles.label}>
-            Your name
+      <div className={styles.budgetBox}>
+        <p className={styles.budgetTitle}>Budget</p>
+        <p className={styles.budgetLead}>
+          Marketing works best when the plan fits the budget. This helps us recommend the right
+          scope, not turn anyone away.
+        </p>
+
+        {radioGroup('ready', 'Are you ready to invest ₹30,000 or more per month?', READY_OPTIONS)}
+
+        <div className={styles.field}>
+          <label htmlFor={id('budget')} className={styles.label}>
+            Approximate monthly budget
           </label>
-          <input
-            type="text"
-            autoComplete="name"
+          <select
+            id={id('budget')}
+            name="budget"
             className={styles.input}
-            onChange={(e) => set('name', e.target.value)}
-            {...fieldProps('name')}
-          />
-          {errorText('name')}
+            value={values.budget}
+            onChange={(e) => set('budget', e.target.value)}
+            aria-invalid={errors.budget ? true : undefined}
+            aria-describedby={describedBy('budget')}
+          >
+            <option value="">Select a range…</option>
+            {BUDGETS.map((b) => (
+              <option key={b}>{b}</option>
+            ))}
+          </select>
+          {errorText('budget')}
         </div>
+      </div>
 
-        {type === 'studio' ? (
-          <>
-            <div className={styles.field}>
-              <label htmlFor={id('sessionType')} className={styles.label}>
-                Type of session
-              </label>
-              <select
-                className={styles.input}
-                onChange={(e) => set('sessionType', e.target.value)}
-                {...fieldProps('sessionType')}
-              >
-                <option value="">Select…</option>
-                <option>Podcast</option>
-                <option>Interview</option>
-                <option>Video shoot</option>
-                <option>Other</option>
-              </select>
-              {errorText('sessionType')}
-            </div>
-
-            <div className={styles.field}>
-              <label htmlFor={id('support')} className={styles.label}>
-                Support needed
-              </label>
-              <select
-                className={styles.input}
-                onChange={(e) => set('support', e.target.value)}
-                {...fieldProps('support')}
-              >
-                <option value="">Select…</option>
-                <option>Studio only</option>
-                <option>Production support</option>
-                <option>Not sure yet</option>
-              </select>
-              {errorText('support')}
-            </div>
-
-            <div className={styles.field}>
-              <label htmlFor={id('date')} className={styles.label}>
-                Preferred date
-              </label>
-              <input
-                type="date"
-                className={styles.input}
-                onChange={(e) => set('date', e.target.value)}
-                {...fieldProps('date')}
-              />
-              {errorText('date')}
-            </div>
-
-            <div className={styles.field}>
-              <label htmlFor={id('time')} className={styles.label}>
-                Preferred time <span className={styles.optional}>(optional)</span>
-              </label>
-              <input
-                type="time"
-                className={styles.input}
-                onChange={(e) => set('time', e.target.value)}
-                {...fieldProps('time')}
-              />
-            </div>
-
-            <div className={styles.fieldWide}>
-              <label htmlFor={id('duration')} className={styles.label}>
-                Approximate duration <span className={styles.optional}>(optional)</span>
-              </label>
-              <input
-                type="text"
-                placeholder="e.g. 2 hours"
-                className={styles.input}
-                onChange={(e) => set('duration', e.target.value)}
-                {...fieldProps('duration')}
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            <div className={styles.field}>
-              <label htmlFor={id('brand')} className={styles.label}>
-                Business or brand <span className={styles.optional}>(optional)</span>
-              </label>
-              <input
-                type="text"
-                autoComplete="organization"
-                className={styles.input}
-                onChange={(e) => set('brand', e.target.value)}
-                {...fieldProps('brand')}
-              />
-            </div>
-
-            <div className={styles.field}>
-              <label htmlFor={id('need')} className={styles.label}>
-                What you need help with
-              </label>
-              <select
-                className={styles.input}
-                onChange={(e) => set('need', e.target.value)}
-                {...fieldProps('need')}
-              >
-                <option value="">Select…</option>
-                <option>Content strategy</option>
-                <option>Scripting</option>
-                <option>Production</option>
-                <option>Editing</option>
-                <option>Branding</option>
-                <option>Social media</option>
-                <option>Marketing</option>
-                <option>Other</option>
-              </select>
-              {errorText('need')}
-            </div>
-
-            <div className={styles.fieldWide}>
-              <label htmlFor={id('overview')} className={styles.label}>
-                Brief overview
-              </label>
-              <textarea
-                rows={4}
-                className={styles.input}
-                onChange={(e) => set('overview', e.target.value)}
-                {...fieldProps('overview')}
-              />
-              {errorText('overview')}
-            </div>
-          </>
-        )}
+      <div className={styles.field}>
+        <label htmlFor={id('overview')} className={styles.label}>
+          Tell us about your brand and goals
+        </label>
+        <textarea
+          id={id('overview')}
+          name="overview"
+          rows={4}
+          className={styles.input}
+          value={values.overview}
+          onChange={(e) => set('overview', e.target.value)}
+          aria-invalid={errors.overview ? true : undefined}
+          aria-describedby={describedBy('overview')}
+        />
+        {errorText('overview')}
       </div>
 
       <div className={styles.actions}>
         <button type="submit" className={styles.submit} disabled={!configured}>
-          {type === 'studio' ? 'Open Studio Enquiry in WhatsApp' : 'Open Project Enquiry in WhatsApp'}
+          Send Enquiry via WhatsApp
+          <span aria-hidden="true">→</span>
         </button>
         <p className={styles.note} role="status">
           {!configured
             ? 'WhatsApp enquiries are not switched on yet. Please check back soon.'
             : opened
-              ? 'WhatsApp should now be open with your message. Press send there to reach CCC — CCC will reply to confirm details.'
+              ? 'WhatsApp should now be open with your message. Press send there to reach CCC. We will reply to talk through the next step.'
               : 'Nothing is sent from this page. The form prepares a WhatsApp message that you review and send yourself.'}
         </p>
       </div>

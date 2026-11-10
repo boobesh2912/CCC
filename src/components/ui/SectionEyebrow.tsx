@@ -2,7 +2,7 @@ import styles from './SectionEyebrow.module.css';
 
 interface SectionEyebrowProps {
   text: string;
-  variant?: 'dark' | 'light';
+  variant?: 'dark' | 'light' | 'ink';
   className?: string;
 }
 

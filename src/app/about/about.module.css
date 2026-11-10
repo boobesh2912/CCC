@@ -306,3 +306,8 @@
   display: flex;
   justify-content: center;
 }
+
+.closingBtn {
+  flex-wrap: wrap;
+  gap: 1rem;
+}

@@ -50,3 +50,11 @@ When adding real images:
 
 The current "CCC" / "COVAI CREATIVE CORNER" text treatment is a temporary typographic mark.
 Replace with the final logo when available. The header component accepts both text and image logos.
+
+## Agency pivot (current state)
+
+- **Services** are two lines, edited in `src/content/services.ts`: Personal Branding (Instagram, YouTube, LinkedIn, website, scripting, shooting, content strategy, editing) and Digital Marketing (Meta Ads, Google Ads, SEO, paid marketing). No prices are shown.
+- **Studio** is a "Coming soon" page at `/studio` with a WhatsApp notify link. Studio booking was removed everywhere. When the studio opens, replace that page and add real photography.
+- **Contact form** (`src/components/sections/EnquiryForm.tsx`) asks the monthly budget, including "ready to invest ₹30,000+ per month?". Change the thresholds in the `READY_OPTIONS` / `BUDGETS` lists. It only prepares a WhatsApp message; nothing is stored.
+- **Hero visual** is an illustrative collage (`HeroCollage`). Replace with real brand or client visuals when approved.
+- Work page and "What we can create" are illustrative formats. Add real, approved projects before claiming results.

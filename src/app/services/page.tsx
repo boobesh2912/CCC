@@ -1,16 +1,18 @@
+import type { Metadata } from 'next';
 import MotionReveal from '@/components/motion/MotionReveal';
-import WhatsAppCTA from '@/components/ui/WhatsAppCTA';
+import ButtonLink from '@/components/ui/ButtonLink';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
-import ServiceCards from '@/components/sections/ServiceCards';
+import ServiceIcon from '@/components/ui/ServiceIcon';
+import WhatsAppCTA from '@/components/ui/WhatsAppCTA';
 import { services } from '@/content/services';
 import { getServicesEnquiryUrl } from '@/lib/whatsapp';
 import styles from './services.module.css';
 
-export const metadata = {
-  title: 'Creative Services',
+export const metadata: Metadata = {
+  title: 'Services — Personal Branding & Digital Marketing',
   alternates: { canonical: '/services' },
   description:
-    'Content strategy, scripting, video and podcast editing, brand identity, social media management, and digital marketing from Covai Creative Corner.',
+    'Personal branding (Instagram, YouTube, LinkedIn, website, scripting, shooting, content strategy, editing) and digital marketing (Meta Ads, Google Ads, SEO, paid marketing) from Covai Creative Corner.',
 };
 
 export default function ServicesPage() {
@@ -20,111 +22,106 @@ export default function ServicesPage() {
       <section className={styles.heroSection}>
         <div className="container">
           <MotionReveal direction="up" immediate>
-            <SectionEyebrow text="CREATIVE SERVICES" />
-            <h1 className={styles.heroTitle}>Build a voice worth hearing.</h1>
+            <SectionEyebrow text="SERVICES" />
+            <h1 className={styles.heroTitle}>
+              Two services. <span className={styles.accent}>Everything</span> your brand needs.
+            </h1>
             <p className={styles.heroSubtitle}>
-              From content strategy to publishing, CCC gives your brand the creative production and
-              support it needs to show up with intention.
+              Build the story with Personal Branding, then put it in front of the right people with
+              Digital Marketing. Start with one, or bring both together.
             </p>
+            <nav className={styles.jump} aria-label="Jump to a service">
+              {services.map((svc) => (
+                <a key={svc.id} href={`#${svc.id}`} className={styles.jumpLink}>
+                  <span className={styles.jumpIndex}>{svc.index}</span>
+                  {svc.title}
+                  <span aria-hidden="true">↓</span>
+                </a>
+              ))}
+            </nav>
           </MotionReveal>
         </div>
       </section>
 
-      {/* 2. AT A GLANCE — cards linking to the detail sections below */}
-      <section className={styles.glanceSection} aria-label="Services at a glance">
-        <div className="container">
-          <ServiceCards />
-        </div>
-      </section>
+      {/* 2. THE TWO SERVICES */}
+      {services.map((svc, si) => {
+        const light = si % 2 === 1;
+        return (
+          <section
+            key={svc.id}
+            id={svc.id}
+            className={`${styles.service} ${light ? styles.serviceLight : styles.serviceDark}`}
+          >
+            <div className="container">
+              <div className={styles.serviceHead}>
+                <MotionReveal direction="up" className={styles.serviceTitleBlock}>
+                  <div className={styles.serviceMeta}>
+                    <span className={styles.serviceIndex}>{svc.index}</span>
+                    <SectionEyebrow text="SERVICE" variant={light ? 'light' : 'dark'} />
+                  </div>
+                  <h2 className={styles.serviceTitle}>{svc.title}</h2>
+                  <p className={styles.serviceTagline}>{svc.tagline}</p>
+                </MotionReveal>
 
-      {/* 2. SERVICES COMPREHENSIVE LIST */}
-      <div className={styles.servicesContainer}>
-        {services.map((svc, index) => {
-          const isEven = index % 2 === 0;
-          return (
-            <section
-              key={svc.id}
-              id={svc.id}
-              className={`${styles.serviceSection} ${
-                index % 3 === 2 ? styles.serviceSectionPaper : isEven ? styles.serviceSectionDark : styles.serviceSectionPanel
-              }`}
-            >
-              <div className="container">
-                <div className={`${styles.serviceGrid} ${isEven ? '' : styles.serviceGridReverse}`}>
-                  {/* Service Text Detail */}
-                  <div className={styles.serviceText}>
-                    <MotionReveal direction="up">
-                      <div className={styles.serviceHeaderMeta}>
-                        <span className={styles.serviceIndex}>{svc.index}</span>
-                        <span className={styles.serviceCategory}>SERVICE</span>
-                      </div>
-                      <h2 className={styles.serviceTitle}>{svc.title}</h2>
-                      <p className={styles.serviceDesc}>{svc.fullDescription}</p>
+                <MotionReveal direction="up" delay={150} className={styles.serviceIntro}>
+                  <p className={styles.serviceDesc}>{svc.description}</p>
+                  <p className={styles.whoItHelps}>
+                    <strong>Who it helps:</strong> {svc.whoItHelps}
+                  </p>
+                  <ButtonLink href="/contact#enquiry" variant={light ? 'secondary' : 'primary'}>
+                    {svc.cta}
+                  </ButtonLink>
+                </MotionReveal>
+              </div>
 
-                      <div className={styles.serviceSubBlock}>
-                        <h3 className={styles.subHeading}>Who it helps</h3>
-                        <p className={styles.subParagraph}>{svc.whoItHelps}</p>
-                      </div>
-
-                      <div className={styles.serviceSubBlock}>
-                        <h3 className={styles.subHeading}>Typical collaboration scope</h3>
-                        <ul className={styles.scopeList}>
-                          {svc.typicalWork.map((item) => (
-                            <li key={item} className={styles.scopeItem}>
-                              <span className={styles.scopeBullet} />
-                              <span>{item}</span>
-                            </li>
+              <ul className={styles.offerGrid}>
+                {svc.offerings.map((o, oi) => (
+                  <li key={o.id} id={o.id} className={styles.offerItem}>
+                    <MotionReveal direction="up" delay={(oi % 4) * 90} className={styles.offerReveal}>
+                      <article className={styles.offer}>
+                        <span className={styles.offerIcon}>
+                          <ServiceIcon name={o.icon} size={28} />
+                        </span>
+                        <h3 className={styles.offerTitle}>{o.title}</h3>
+                        <p className={styles.offerDesc}>{o.description}</p>
+                        <ul className={styles.points}>
+                          {o.points.map((pt) => (
+                            <li key={pt}>{pt}</li>
                           ))}
                         </ul>
-                      </div>
-
-                      <div className={styles.serviceCta}>
-                        <WhatsAppCTA
-                          href={getServicesEnquiryUrl()}
-                          label={svc.cta}
-                          variant={index % 3 === 2 ? 'primary' : 'outline'}
-                          analyticsEvent="services_enquiry_click"
-                        />
-                      </div>
+                      </article>
                     </MotionReveal>
-                  </div>
+                  </li>
+                ))}
+              </ul>
 
-                  {/* Asymmetric Visual Element */}
-                  <div className={styles.serviceVisual}>
-                    <MotionReveal direction="up" delay={150}>
-                      <div className={styles.visualFrame}>
-                        <div className={styles.visualTag}>{svc.title.toUpperCase()}</div>
-                        <div className={styles.visualPlaceholderDetail}>
-                          <span className={styles.visualCode}>SERVICE {svc.index}</span>
-                          <span className={styles.visualAspectNotice}>IMAGE TO FOLLOW</span>
-                        </div>
-                      </div>
-                    </MotionReveal>
-                  </div>
-                </div>
-              </div>
-            </section>
-          );
-        })}
-      </div>
+              <p className={styles.note}>
+                Scope is agreed with you before work starts. Typical work varies by project.
+              </p>
+            </div>
+          </section>
+        );
+      })}
 
       {/* 3. CLOSING CTA */}
       <section className={styles.closingSection}>
         <div className="container">
           <div className={styles.closingBox}>
             <MotionReveal direction="up">
-              <SectionEyebrow text="INITIAL DISCUSSIONS" />
-              <h2 className={styles.closingTitle}>Not sure where to start?</h2>
+              <SectionEyebrow text="NOT SURE WHERE TO START?" variant="ink" />
+              <h2 className={styles.closingTitle}>Tell us your goal. We&apos;ll suggest the way in.</h2>
               <p className={styles.closingText}>
-                Tell us what you&apos;re working on and we&apos;ll suggest how CCC can help. We can
-                structure an engagement around a single high-priority piece or an ongoing publishing
-                cadence.
+                Share what you&apos;re working on and your monthly budget, and we&apos;ll recommend where
+                to begin. No pressure, no fixed packages.
               </p>
               <div className={styles.closingBtn}>
+                <ButtonLink href="/contact#enquiry" variant="ink" size="large">
+                  Start a Project
+                </ButtonLink>
                 <WhatsAppCTA
                   href={getServicesEnquiryUrl()}
-                  label="Discuss a Creative Project"
-                  variant="ink"
+                  label="Chat on WhatsApp"
+                  variant="inkOutline"
                   size="large"
                   analyticsEvent="services_enquiry_click"
                 />

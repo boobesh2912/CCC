@@ -32,7 +32,7 @@ export default function OpengraphImage() {
           }}
         >
           <span>COVAI CREATIVE CORNER</span>
-          <span style={{ color: '#FF6A00' }}>RECORD / CREATE / PUBLISH</span>
+          <span style={{ color: '#FF6A00' }}>RECORD · CREATE · PUBLISH · GROW</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ width: 96, height: 3, backgroundColor: '#FF6A00', marginBottom: 36 }} />
@@ -41,7 +41,7 @@ export default function OpengraphImage() {
           </div>
         </div>
         <div style={{ fontSize: 26, color: '#B8B3AA', fontFamily: 'sans-serif' }}>
-          Podcast &amp; video studio · Brand and content services
+          Personal branding · Digital marketing
         </div>
       </div>
     ),

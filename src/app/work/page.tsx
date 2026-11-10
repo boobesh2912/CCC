@@ -1,80 +1,82 @@
+import type { Metadata } from 'next';
 import MotionReveal from '@/components/motion/MotionReveal';
+import ButtonLink from '@/components/ui/ButtonLink';
 import WhatsAppCTA from '@/components/ui/WhatsAppCTA';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import { getServicesEnquiryUrl } from '@/lib/whatsapp';
 import styles from './work.module.css';
 
-export const metadata = {
-  title: 'Selected Capabilities',
+export const metadata: Metadata = {
+  title: 'What We Can Create',
   alternates: { canonical: '/work' },
   description:
-    'The kinds of podcasts, video, brand, and social content CCC can help create — shown as illustrative formats, not client projects.',
+    'The kinds of content and campaigns CCC can help create across Instagram, YouTube, LinkedIn, websites, Meta Ads, Google Ads and SEO, shown as illustrative formats, not client projects.',
 };
 
-export default function WorkPage() {
-  const capabilities = [
-    {
-      id: 'vodcast',
-      category: 'PODCAST PRODUCTION',
-      aspectClass: styles.aspectWide,
-      title: 'Episodic Video Podcasts',
-      desc: 'A recurring conversation series, recorded in the studio and edited into full episodes for YouTube and audio platforms.',
-      spec: 'FORMAT · 16:9 LONG-FORM',
-    },
-    {
-      id: 'brand-film',
-      category: 'BRAND FILMS & CINEMA',
-      aspectClass: styles.aspectTall,
-      title: 'Founder & Brand Films',
-      desc: 'Short pieces where a founder or team explains what they do and why it matters, shaped by a script and a clear point of view.',
-      spec: 'FORMAT · SHORT FILM',
-    },
-    {
-      id: 'identity-systems',
-      category: 'BRAND IDENTITY',
-      aspectClass: styles.aspectSquare,
-      title: 'Brand Identity Systems',
-      desc: 'A wordmark, colour, typography, and tone of voice brought together into guidelines and templates a team can actually use.',
-      spec: 'FORMAT · IDENTITY & GUIDELINES',
-    },
-    {
-      id: 'social-series',
-      category: 'SOCIAL ECOSYSTEMS',
-      aspectClass: styles.aspectPanoramic,
-      title: 'Short-Form Clips from Long Recordings',
-      desc: 'One studio session cut into a set of captioned vertical clips for Reels, Shorts, and LinkedIn.',
-      spec: 'FORMAT · 9:16 VERTICAL',
-    },
-    {
-      id: 'dialogue-series',
-      category: 'INTERVIEWS & DIALOGUE',
-      aspectClass: styles.aspectStandard,
-      title: 'Interview & Expert Series',
-      desc: 'Planned interviews with founders and specialists, with question design and a structure that lets the guest go deep.',
-      spec: 'FORMAT · INTERVIEW SERIES',
-    },
-    {
-      id: 'campaign-content',
-      category: 'CAMPAIGN PRODUCTION',
-      aspectClass: styles.aspectTallAlt,
-      title: 'Campaign Content',
-      desc: 'Visual and video assets for a launch or campaign, planned around one message and adapted for each channel it runs on.',
-      spec: 'FORMAT · MULTI-CHANNEL',
-    },
-  ];
+// Illustrative formats only. Replace with real, approved projects when available.
+const capabilities = [
+  {
+    id: 'short-form',
+    category: 'SHORT-FORM VIDEO',
+    aspectClass: styles.aspectWide,
+    title: 'Reels & Shorts Series',
+    desc: 'A recurring short-form series, scripted, shot and edited for Instagram and YouTube.',
+    spec: 'FORMAT · 9:16 VERTICAL',
+  },
+  {
+    id: 'youtube-channel',
+    category: 'YOUTUBE',
+    aspectClass: styles.aspectTall,
+    title: 'YouTube Channel Launch',
+    desc: 'Channel positioning, titles, thumbnails and a repeatable upload workflow, so your channel is easy to find and easy to follow.',
+    spec: 'FORMAT · LONG-FORM VIDEO',
+  },
+  {
+    id: 'linkedin',
+    category: 'LINKEDIN',
+    aspectClass: styles.aspectSquare,
+    title: 'Founder Thought Leadership',
+    desc: 'Posts and carousels that put a founder’s expertise in front of decision-makers.',
+    spec: 'FORMAT · POSTS & CAROUSELS',
+  },
+  {
+    id: 'brand-site',
+    category: 'WEBSITE',
+    aspectClass: styles.aspectPanoramic,
+    title: 'Personal Brand Website',
+    desc: 'A clean, mobile-first website that backs up everything you publish.',
+    spec: 'FORMAT · WEBSITE',
+  },
+  {
+    id: 'paid',
+    category: 'PAID MARKETING',
+    aspectClass: styles.aspectStandard,
+    title: 'Meta & Google Ad Campaigns',
+    desc: 'Campaigns with creative built to earn the click, and tracking set up to show what is working.',
+    spec: 'FORMAT · PAID CAMPAIGNS',
+  },
+  {
+    id: 'seo',
+    category: 'SEO',
+    aspectClass: styles.aspectTallAlt,
+    title: 'Search Visibility',
+    desc: 'Keyword research, on-page fixes and content, so the right people can find you on Google.',
+    spec: 'FORMAT · ORGANIC SEARCH',
+  },
+];
 
+export default function WorkPage() {
   return (
     <div className={styles.page}>
       {/* 1. HERO */}
       <section className={styles.heroSection}>
         <div className="container">
           <MotionReveal direction="up" immediate>
-            <SectionEyebrow text="SELECTED CAPABILITIES" />
-            <h1 className={styles.heroTitle}>What we can create.</h1>
+            <SectionEyebrow text="WHAT WE CAN CREATE" />
+            <h1 className={styles.heroTitle}>Content and campaigns, built to be noticed.</h1>
             <p className={styles.heroSubtitle}>
-              CCC brings studio production and creative services together. These are the kinds of
-              formats we can help you plan, record, and finish. Real projects will appear here as
-              they&apos;re approved for publication.
+              These are the kinds of content and campaigns CCC can help you plan, make and grow. Real
+              projects will appear here as they&apos;re approved for publication.
             </p>
             <div className={styles.noticeTag}>
               <span className={styles.noticeDot} />
@@ -84,7 +86,7 @@ export default function WorkPage() {
         </div>
       </section>
 
-      {/* 2. MASONRY EDITORIAL GRID */}
+      {/* 2. EDITORIAL GRID */}
       <section className={styles.gridSection}>
         <div className="container">
           <div className={styles.masonryGrid}>
@@ -95,7 +97,6 @@ export default function WorkPage() {
                 delay={(i % 3) * 120}
                 className={styles.gridCard}
               >
-                {/* Visual Asset Container */}
                 <div className={`${styles.visualFrame} ${cap.aspectClass}`}>
                   <div className={styles.visualMetaTop}>
                     <span className={styles.visualCategory}>{cap.category}</span>
@@ -106,7 +107,6 @@ export default function WorkPage() {
                   </div>
                 </div>
 
-                {/* Card Meta Content */}
                 <div className={styles.cardContent}>
                   <h3 className={styles.cardTitle}>{cap.title}</h3>
                   <p className={styles.cardDesc}>{cap.desc}</p>
@@ -122,17 +122,20 @@ export default function WorkPage() {
         <div className="container">
           <div className={styles.closingBox}>
             <MotionReveal direction="up">
-              <SectionEyebrow text="COLLABORATION" />
-              <h2 className={styles.closingTitle}>Have a specific production format in mind?</h2>
+              <SectionEyebrow text="COLLABORATION" variant="ink" />
+              <h2 className={styles.closingTitle}>Have something like this in mind?</h2>
               <p className={styles.closingText}>
-                Share what you&apos;re planning. CCC will talk through the format, what the
-                production involves, and the right next step.
+                Share what you&apos;re planning and your monthly budget. We&apos;ll talk through the
+                format and the right next step.
               </p>
               <div className={styles.closingBtn}>
+                <ButtonLink href="/contact#enquiry" variant="ink" size="large">
+                  Start a Project
+                </ButtonLink>
                 <WhatsAppCTA
                   href={getServicesEnquiryUrl()}
-                  label="Discuss a Similar Project"
-                  variant="ink"
+                  label="Chat on WhatsApp"
+                  variant="inkOutline"
                   size="large"
                   analyticsEvent="services_enquiry_click"
                 />

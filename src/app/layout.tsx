@@ -29,24 +29,24 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   alternates: { canonical: '/' },
   title: {
-    default: 'Covai Creative Corner — Creative Production Studio',
+    default: 'Covai Creative Corner — Personal Branding & Digital Marketing Agency',
     template: '%s | Covai Creative Corner',
   },
   description:
-    'A creative production studio and brand partner for podcasts, video, brands, and content built to connect.',
+    'A personal branding and digital marketing agency helping founders, creators and businesses expand their market and grow.',
   openGraph: {
     type: 'website',
     locale: 'en_IN',
     siteName: 'Covai Creative Corner',
-    title: 'Covai Creative Corner — Creative Production Studio',
+    title: 'Covai Creative Corner — Personal Branding & Digital Marketing Agency',
     description:
-      'A creative production studio and brand partner for podcasts, video, brands, and content built to connect.',
+      'A personal branding and digital marketing agency helping founders, creators and businesses expand their market and grow.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Covai Creative Corner — Creative Production Studio',
+    title: 'Covai Creative Corner — Personal Branding & Digital Marketing Agency',
     description:
-      'A creative production studio and brand partner for podcasts, video, brands, and content built to connect.',
+      'A personal branding and digital marketing agency helping founders, creators and businesses expand their market and grow.',
   },
   robots: {
     index: true,

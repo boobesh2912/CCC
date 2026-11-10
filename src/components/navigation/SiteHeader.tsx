@@ -3,8 +3,7 @@
 import { useState, useEffect, useRef, useCallback, type CSSProperties, type KeyboardEvent } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { services } from '@/content/services';
-import { getStudioBookingUrl, isWhatsAppConfigured } from '@/lib/whatsapp';
+import { getServicesEnquiryUrl, isWhatsAppConfigured } from '@/lib/whatsapp';
 import styles from './SiteHeader.module.css';
 
 interface MenuChild {
@@ -17,37 +16,45 @@ interface MenuItem {
   label: string;
   href: string;
   children?: MenuChild[];
+  /** Shows a "Soon" tag next to the label. */
+  soon?: boolean;
 }
 
 const menu: MenuItem[] = [
   { key: 'home', label: 'Home', href: '/' },
   {
-    key: 'studio',
-    label: 'Studio',
-    href: '/studio',
-    children: [
-      { label: 'Studio Rental', href: '/studio' },
-      { label: 'Production Support', href: '/studio#production' },
-      { label: 'What People Record Here', href: '/studio#use-cases' },
-      { label: 'Studio FAQs', href: '/studio#studio-faqs' },
-    ],
-  },
-  {
     key: 'services',
     label: 'Services',
     href: '/services',
-    children: services.map((s) => ({ label: s.title, href: `/services#${s.id}` })),
+    children: [
+      { label: 'Personal Branding', href: '/services#personal-branding' },
+      { label: 'Instagram & YouTube', href: '/services#instagram' },
+      { label: 'LinkedIn', href: '/services#linkedin' },
+      { label: 'Website', href: '/services#website' },
+      { label: 'Digital Marketing', href: '/services#digital-marketing' },
+      { label: 'Meta & Google Ads', href: '/services#meta-ads' },
+      { label: 'SEO', href: '/services#seo' },
+    ],
   },
   { key: 'work', label: 'Work', href: '/work' },
   { key: 'about', label: 'About', href: '/about' },
+  {
+    key: 'studio',
+    label: 'Studio',
+    href: '/studio',
+    soon: true,
+    children: [
+      { label: 'Coming Soon', href: '/studio' },
+      { label: 'Get Notified', href: '/studio#notify' },
+    ],
+  },
   {
     key: 'contact',
     label: 'Contact',
     href: '/contact',
     children: [
-      { label: 'Book the Studio', href: '/contact' },
-      { label: 'Discuss a Creative Project', href: '/contact' },
-      { label: 'Send an Enquiry', href: '/contact#enquiry' },
+      { label: 'Start a Project', href: '/contact#enquiry' },
+      { label: 'Share Your Budget', href: '/contact#enquiry' },
     ],
   },
 ];
@@ -106,7 +113,7 @@ export default function SiteHeader() {
   const currentKey = currentKeyFor(pathname);
   const activeKey = hoverKey ?? currentKey ?? FALLBACK_PANEL;
   const panelItem = menu.find((m) => m.key === panelKey) ?? menu.find((m) => m.key === FALLBACK_PANEL)!;
-  const studioReady = isWhatsAppConfigured();
+  const whatsAppReady = isWhatsAppConfigured();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -244,6 +251,7 @@ export default function SiteHeader() {
                     onClick={closeMenu}
                   >
                     {item.label}
+                    {item.soon && <span className={styles.soonTag}>Soon</span>}
                   </Link>
                 </li>
               ))}
@@ -261,13 +269,13 @@ export default function SiteHeader() {
                 </li>
               ))}
             </ul>
-            {studioReady ? (
-              <a href={getStudioBookingUrl()} target="_blank" rel="noopener noreferrer" className={styles.panelCta} onClick={closeMenu}>
-                Book the Studio on WhatsApp
+            {whatsAppReady ? (
+              <a href={getServicesEnquiryUrl()} target="_blank" rel="noopener noreferrer" className={styles.panelCta} onClick={closeMenu}>
+                Chat on WhatsApp
               </a>
             ) : (
-              <Link href="/studio" className={styles.panelCta} onClick={closeMenu}>
-                Explore the Studio
+              <Link href="/contact#enquiry" className={styles.panelCta} onClick={closeMenu}>
+                Start a Project
               </Link>
             )}
           </div>

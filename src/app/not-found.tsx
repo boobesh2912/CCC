@@ -21,11 +21,11 @@ export default function NotFound() {
           <Link href="/" className={styles.primary}>
             Back to Home
           </Link>
-          <Link href="/studio" className={styles.link}>
-            The Studio
-          </Link>
           <Link href="/services" className={styles.link}>
-            Creative Services
+            Services
+          </Link>
+          <Link href="/work" className={styles.link}>
+            What We Create
           </Link>
           <Link href="/contact" className={styles.link}>
             Contact

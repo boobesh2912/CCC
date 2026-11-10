@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import CurrentYear from '@/components/ui/CurrentYear';
 import { siteConfig } from '@/content/site';
-import { getStudioBookingUrl, isWhatsAppConfigured } from '@/lib/whatsapp';
+import { getServicesEnquiryUrl, isWhatsAppConfigured } from '@/lib/whatsapp';
 import styles from './ContactFooter.module.css';
 
 export default function ContactFooter() {
@@ -53,7 +53,7 @@ export default function ContactFooter() {
           <div className={styles.socialLinks}>
             {whatsAppReady && (
               <a
-                href={getStudioBookingUrl()}
+                href={getServicesEnquiryUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialLink}

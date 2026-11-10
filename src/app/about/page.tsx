@@ -1,15 +1,17 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import ButtonLink from '@/components/ui/ButtonLink';
 import MotionReveal from '@/components/motion/MotionReveal';
 import WhatsAppCTA from '@/components/ui/WhatsAppCTA';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import { getServicesEnquiryUrl } from '@/lib/whatsapp';
 import styles from './about.module.css';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'About CCC',
   alternates: { canonical: '/about' },
   description:
-    'Creative philosophy, production discipline, and collaborative standards behind Covai Creative Corner.',
+    'The approach behind Covai Creative Corner: a personal branding and digital marketing agency built on a clear point of view and a thoughtful plan.',
 };
 
 export default function AboutPage() {
@@ -17,17 +19,17 @@ export default function AboutPage() {
     {
       num: '01',
       title: 'Start with intention.',
-      body: 'Every project begins with a clear understanding of who it is for and what it needs to say. Before adjusting lights or hitting record, we establish the core thesis so every frame and sentence carries weight.',
+      body: 'Every project begins with a clear understanding of who it is for and what it needs to say. Before we plan a post, a shoot or a campaign, we pin down the message so everything that follows carries weight.',
     },
     {
       num: '02',
       title: 'Make it with care.',
-      body: 'Quality comes from preparation as much as equipment: a clear plan for the session, attention to sound and framing, and careful editing afterwards.',
+      body: 'Quality comes from preparation as much as tools: a clear plan, attention to detail in every post and ad, and an honest look at what is working.',
     },
     {
       num: '03',
       title: 'Put it where it matters.',
-      body: 'A recording only matters once people see it. We help adapt the work for the channels your audience uses, without losing what it was meant to say.',
+      body: 'Content only matters once people see it. We help adapt the work for the channels your audience uses, without losing what it was meant to say.',
     },
   ];
 
@@ -40,9 +42,9 @@ export default function AboutPage() {
             <SectionEyebrow text="ABOUT CCC" />
             <h1 className={styles.heroTitle}>Good content starts before the camera rolls.</h1>
             <p className={styles.heroSubtitle}>
-              Covai Creative Corner is a creative production studio and brand partner built around one
-              conviction: the strongest work comes from a clear point of view, a thoughtful
-              production process, and respect for the audience&apos;s attention.
+              Covai Creative Corner is a personal branding and digital marketing agency built around one
+              conviction: the strongest work comes from a clear point of view, a thoughtful plan,
+              and respect for the audience&apos;s attention.
             </p>
           </MotionReveal>
         </div>
@@ -74,36 +76,36 @@ export default function AboutPage() {
           <div className={styles.offersLayout}>
             <div className={styles.offerLeft}>
               <MotionReveal direction="up">
-                <SectionEyebrow text="THE ECOSYSTEM" />
-                <h2 className={styles.sectionHeading}>Physical studio meets creative strategy.</h2>
+                <SectionEyebrow text="HOW IT FITS TOGETHER" />
+                <h2 className={styles.sectionHeading}>Two services that work as one.</h2>
                 <p className={styles.offerLead}>
-                  CCC brings the place where content is recorded and the thinking behind the brand
-                  into one partner, so the two work together.
+                  Personal Branding builds the story and the content. Digital Marketing puts it in front
+                  of the people who matter. Together, they help you expand your market and grow.
                 </p>
               </MotionReveal>
             </div>
 
             <div className={styles.offerCards}>
               <MotionReveal direction="up" delay={100} className={styles.offerCardDark}>
-                <h3 className={styles.offerCardTitle}>Studio & Production</h3>
+                <h3 className={styles.offerCardTitle}>Personal Branding</h3>
                 <p className={styles.offerCardDesc}>
-                  A studio for podcasts, interviews, and video — available on its own or with
-                  production support and editing.
+                  Instagram, YouTube, LinkedIn and your website, backed by content strategy,
+                  scripting, shooting and editing.
                 </p>
-                <Link href="/studio" className={styles.offerLink}>
-                  Explore the Studio
+                <Link href="/services#personal-branding" className={styles.offerLink}>
+                  Explore Personal Branding
                   <span className={styles.arrow} aria-hidden="true">→</span>
                 </Link>
               </MotionReveal>
 
               <MotionReveal direction="up" delay={200} className={styles.offerCardPaper}>
-                <h3 className={styles.offerCardTitlePaper}>Brand & Content Services</h3>
+                <h3 className={styles.offerCardTitlePaper}>Digital Marketing</h3>
                 <p className={styles.offerCardDescPaper}>
-                  Content strategy, scripting, brand identity, video and podcast editing, social
-                  media management, and digital marketing.
+                  Meta Ads, Google Ads, SEO and a joined-up paid strategy, planned around your
+                  goals and your budget.
                 </p>
-                <Link href="/services" className={styles.offerLinkPaper}>
-                  Explore Creative Services
+                <Link href="/services#digital-marketing" className={styles.offerLinkPaper}>
+                  Explore Digital Marketing
                   <span className={styles.arrow} aria-hidden="true">→</span>
                 </Link>
               </MotionReveal>
@@ -126,8 +128,8 @@ export default function AboutPage() {
                   credentials here once confirmed by CCC management.
                 */}
                 <p className={styles.teamStatement}>
-                  CCC is built for founders, creators, and teams who want a thoughtful place to
-                  record and a creative partner to help the work reach people.
+                  CCC is built for founders, creators and businesses who want a thoughtful creative
+                  partner to help their work reach more people. A studio is also on the way.
                 </p>
                 <p className={styles.teamNotice}>
                   Team profiles and portraits will be added here soon.
@@ -149,17 +151,20 @@ export default function AboutPage() {
         <div className="container">
           <div className={styles.closingBox}>
             <MotionReveal direction="up">
-              <SectionEyebrow text="ENGAGEMENT" />
+              <SectionEyebrow text="ENGAGEMENT" variant="ink" />
               <h2 className={styles.closingTitle}>Ready to start a conversation?</h2>
               <p className={styles.closingText}>
-                Whether you want to book the studio or plan ongoing content for your brand, start
-                with a message and we&apos;ll help you figure out the next step.
+                Whether you want to build a personal brand or grow a business, tell us where you are
+                and we&apos;ll help you figure out the next step.
               </p>
               <div className={styles.closingBtn}>
+                <ButtonLink href="/contact#enquiry" variant="ink" size="large">
+                  Start a Project
+                </ButtonLink>
                 <WhatsAppCTA
                   href={getServicesEnquiryUrl()}
-                  label="Discuss a Creative Project"
-                  variant="ink"
+                  label="Chat on WhatsApp"
+                  variant="inkOutline"
                   size="large"
                   analyticsEvent="services_enquiry_click"
                 />

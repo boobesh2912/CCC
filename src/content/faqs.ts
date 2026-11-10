@@ -6,70 +6,49 @@ export interface FAQItem {
 
 /**
  * FAQ answers are provisional. Replace with confirmed CCC policies before launch.
- * Where details are unknown, the answer directs visitors to WhatsApp.
+ * Where details are unknown, the answer points visitors to the enquiry form or WhatsApp.
  */
 export const homeFaqs: FAQItem[] = [
   {
-    id: 'studio-only',
-    question: 'Can I rent the studio without production support?',
+    id: 'branding-include',
+    question: 'What does Personal Branding include?',
     answer:
-      'Yes. CCC offers studio-only sessions where you bring your own team and use the space independently. If you need help with recording, editing, or production, that can be added. Ask CCC via WhatsApp to discuss what suits your session.',
+      'Personal Branding covers content strategy, scripting, shooting and editing, plus building out your presence on Instagram, YouTube, LinkedIn and your own website. We agree the exact scope with you first, based on where you are and where you want to be.',
   },
   {
-    id: 'recording-editing',
-    question: 'Can CCC help with recording and editing?',
+    id: 'marketing-include',
+    question: 'What does Digital Marketing include?',
     answer:
-      "CCC can support sessions with recording assistance and handle post-production editing for video and podcast content. The scope depends on the project, so share your needs through WhatsApp and CCC will outline what's possible.",
+      'Digital Marketing covers Meta Ads, Google Ads, SEO and the wider paid strategy that ties them together. We plan campaigns around your goals and budget, then test, measure and refine.',
   },
   {
-    id: 'topics-scripts',
-    question: 'Can you help plan topics and scripts?',
+    id: 'need-both',
+    question: 'Do I need both services?',
     answer:
-      'Yes. CCC offers content strategy and scripting as part of the creative services. This includes topic planning, episode or video outlines, interview preparation, and creative briefs. Reach out to discuss your goals.',
+      'No. Many people start with one. Personal Branding builds the story and the content; Digital Marketing puts it in front of more of the right people. Tell us your goal and we will suggest where to begin.',
   },
   {
-    id: 'social-support',
-    question: 'Do you offer ongoing social media support?',
+    id: 'cost',
+    question: 'How much does it cost?',
     answer:
-      'CCC provides social media management including planning, content creation, scheduling, and performance tracking. The arrangement can be ongoing or project-based. Start a conversation on WhatsApp to explore what works for you.',
+      'It depends on the services, the platforms and how much is involved. That is why the enquiry form asks about your monthly budget: it helps us recommend a plan that fits, rather than guess. No prices are fixed on this site yet.',
   },
   {
-    id: 'availability-pricing',
-    question: 'How do I check availability and pricing?',
+    id: 'results',
+    question: 'Can you guarantee results?',
     answer:
-      'Availability and pricing depend on the type of session, duration, and any additional production support. Contact CCC through WhatsApp with your requirements to get a clear outline and confirm availability.',
+      'No honest agency can promise virality, leads or revenue. What we can promise is a clear plan, careful execution, and straight conversations about what is and is not working.',
   },
   {
-    id: 'what-to-bring',
-    question: 'What should I bring to a studio session?',
+    id: 'studio',
+    question: 'Is the CCC studio open?',
     answer:
-      'This depends on your session type. CCC will share preparation details after your booking conversation. In general, bring any notes, scripts, or reference material relevant to your recording. Ask CCC via WhatsApp for specific guidance.',
-  },
-];
-
-export const studioFaqs: FAQItem[] = [
-  {
-    id: 'studio-rental-options',
-    question: 'What are the studio rental options?',
-    answer:
-      'CCC offers studio-only rental as well as sessions with production support. The setup depends on your project needs. Contact CCC via WhatsApp to discuss the right option.',
+      'Not yet. The studio is coming soon. If you want to know when it opens, message us and we will keep you posted.',
   },
   {
-    id: 'studio-suitable-for',
-    question: 'What can I use the studio for?',
+    id: 'start',
+    question: 'How do I get started?',
     answer:
-      'The studio is suitable for podcast recording, video shoots, interviews, founder content, brand content, and similar creative sessions. If you have something specific in mind, ask CCC via WhatsApp.',
-  },
-  {
-    id: 'studio-enquiry-info',
-    question: 'What information should I share when enquiring?',
-    answer:
-      'Share the type of session (podcast, video, etc.), your preferred date and time, approximate duration, and whether you need production support. This helps CCC respond with the right options.',
-  },
-  {
-    id: 'studio-booking-process',
-    question: 'What happens after I enquire?',
-    answer:
-      'After you reach out, CCC will confirm availability, discuss your requirements, help plan the session, and then you record or create. The process is designed to be straightforward.',
+      'Fill in the short enquiry form on the Contact page, or message us on WhatsApp. Tell us about your brand and your budget, and we will come back with the next step.',
   },
 ];

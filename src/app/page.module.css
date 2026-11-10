@@ -6,6 +6,7 @@
 
 /* 1. HERO SECTION */
 .heroSection {
+  overflow-x: clip;
   padding-top: calc(var(--header-height) + var(--space-xl));
   padding-bottom: var(--space-3xl);
   border-bottom: 1px solid var(--ccc-line-dark);
@@ -151,243 +152,29 @@
 .heroBadge {
   position: absolute;
   z-index: 2;
-  left: -4%;
-  top: -12%;
+  left: 0;
+  top: -8%;
   transform: rotate(-8deg);
+}
+
+@media (min-width: 1024px) {
+  .heroBadge {
+    left: -4%;
+    top: -12%;
+  }
 }
 
 .heroAccent {
   color: var(--ccc-accent);
 }
 
-/* 2. STUDIO INTRO */
-.studioIntroSection {
-  padding: var(--space-section) 0;
-  border-bottom: 1px solid var(--ccc-line-dark);
-}
-
-.studioIntroGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-2xl);
-}
-
-@media (min-width: 1024px) {
-  .studioIntroGrid {
-    grid-template-columns: 1fr 1.2fr;
-    align-items: center;
-  }
-}
-
+/* shared section heading */
 .sectionHeading {
   font-family: var(--font-display);
   font-size: var(--text-4xl);
   margin-top: var(--space-xs);
   margin-bottom: var(--space-md);
   color: var(--ccc-paper);
-}
-
-.bodyParagraph {
-  font-size: var(--text-base);
-  color: var(--ccc-muted);
-  line-height: 1.7;
-  margin-bottom: var(--space-lg);
-}
-
-.studioIntroCrops {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-md);
-  position: relative;
-}
-
-@media (min-width: 640px) {
-  .studioIntroCrops {
-    grid-template-columns: 1.6fr 1fr;
-  }
-}
-
-.primaryCrop {
-  aspect-ratio: 4 / 3;
-  background-color: var(--ccc-panel);
-  border: 1px solid var(--ccc-line-dark);
-  position: relative;
-  overflow: hidden;
-}
-
-.secondaryCrop {
-  aspect-ratio: 4 / 3;
-  background-color: #171716;
-  border: 1px solid var(--ccc-line-dark);
-  position: relative;
-  overflow: hidden;
-}
-
-.cropPlaceholder,
-.cropPlaceholderMini {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.25rem;
-  background-color: #171615;
-}
-
-.cropLabel {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.1em;
-  color: var(--ccc-accent);
-  margin-bottom: 0.25rem;
-}
-
-.cropSpec {
-  font-family: var(--font-mono);
-  font-size: clamp(0.6rem, 0.55rem + 0.1vw, 0.7rem);
-  color: var(--ccc-muted);
-  opacity: 0.6;
-}
-
-/* 3. TWO WAYS TO WORK */
-.twoWaysSection {
-  padding: var(--space-section) 0;
-  background-color: var(--ccc-panel);
-  border-bottom: 1px solid var(--ccc-line-dark);
-}
-
-.twoWaysGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-xl);
-  margin-top: var(--space-xl);
-}
-
-@media (min-width: 768px) {
-  .twoWaysGrid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.wayCardDark {
-  background-color: var(--ccc-ink);
-  border: 1px solid var(--ccc-line-dark);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
-  display: flex;
-  flex-direction: column;
-}
-
-.wayCardPaper {
-  background-color: var(--ccc-paper);
-  color: var(--ccc-ink);
-  padding: var(--space-xl);
-  display: flex;
-  flex-direction: column;
-}
-
-.wayHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: var(--space-md);
-}
-
-.wayNumber {
-  font-family: var(--font-mono);
-  font-size: var(--text-xl);
-  color: var(--ccc-accent);
-}
-
-.wayNumberPaper {
-  font-family: var(--font-mono);
-  font-size: var(--text-xl);
-  color: var(--ccc-ink-muted);
-}
-
-.wayTag {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.12em;
-  color: var(--ccc-muted);
-}
-
-.wayTagPaper {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.12em;
-  color: var(--ccc-ink-muted);
-}
-
-.wayTitle {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  color: var(--ccc-paper);
-  margin-bottom: var(--space-sm);
-}
-
-.wayTitlePaper {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  color: var(--ccc-ink);
-  margin-bottom: var(--space-sm);
-}
-
-.wayDescription {
-  font-size: var(--text-base);
-  color: var(--ccc-muted);
-  line-height: 1.6;
-  margin-bottom: var(--space-lg);
-}
-
-.wayDescriptionPaper {
-  font-size: var(--text-base);
-  color: var(--ccc-ink-muted);
-  line-height: 1.6;
-  margin-bottom: var(--space-lg);
-}
-
-.wayList {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: var(--space-xl);
-  flex-grow: 1;
-}
-
-.wayItem {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: var(--text-sm);
-  color: var(--ccc-paper);
-}
-
-.wayItemPaper {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: var(--text-sm);
-  color: var(--ccc-ink);
-}
-
-.itemBullet {
-  width: 6px;
-  height: 6px;
-  background-color: var(--ccc-accent);
-  border-radius: 50%;
-}
-
-.itemBulletPaper {
-  width: 6px;
-  height: 6px;
-  background-color: var(--ccc-ink);
-  border-radius: 50%;
-}
-
-.wayCta {
-  margin-top: auto;
 }
 
 /* 4. PROCESS SEQUENCE */
@@ -562,6 +349,59 @@
 .pillLink:hover {
   background-color: var(--ccc-ink);
   color: var(--ccc-paper);
+}
+
+/* STUDIO — COMING SOON */
+.soonSection {
+  padding: var(--space-2xl) 0;
+  background-color: var(--ccc-ink);
+}
+
+.soonCard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding: clamp(1.75rem, 4vw, 3.5rem);
+  background-color: var(--ccc-yellow);
+  color: var(--ccc-ink);
+  border: 3px solid var(--ccc-ink);
+  border-radius: var(--radius-xl);
+  box-shadow: 10px 10px 0 var(--ccc-accent);
+}
+
+.soonText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  max-width: 44rem;
+}
+
+.soonBadge {
+  padding: 0.3rem 0.9rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--ccc-ink);
+  color: var(--ccc-yellow);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+}
+
+.soonTitle {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-4xl);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--ccc-ink);
+}
+
+.soonCopy {
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  color: var(--ccc-ink);
 }
 
 /* 7. PHILOSOPHY */

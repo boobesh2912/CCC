@@ -3,7 +3,7 @@
  * Only tracks CTA click events; never sends message content or PII.
  */
 
-export type CTAEvent = 'studio_booking_click' | 'services_enquiry_click' | 'whatsapp_click';
+export type CTAEvent = 'services_enquiry_click' | 'studio_waitlist_click' | 'whatsapp_click';
 
 export function trackCTAClick(event: CTAEvent): void {
   // TODO: Connect to analytics provider (GA4, Plausible, etc.) when configured.

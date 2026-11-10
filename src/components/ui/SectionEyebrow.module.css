@@ -14,3 +14,7 @@
 .light {
   color: var(--ccc-ink-muted);
 }
+
+.ink {
+  color: var(--ccc-ink);
+}

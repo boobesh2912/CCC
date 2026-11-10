@@ -4,314 +4,36 @@
   min-height: 100vh;
 }
 
+/* ───── Hero ───── */
 .heroSection {
   padding-top: calc(var(--header-height) + var(--space-2xl));
   padding-bottom: var(--space-2xl);
-  border-bottom: 1px solid var(--ccc-line-dark);
 }
 
 .heroTitle {
-  font-family: var(--font-display);
   font-size: var(--text-hero);
-  line-height: 1.08;
-  color: var(--ccc-paper);
-  margin-top: var(--space-xs);
-  margin-bottom: var(--space-md);
-  max-width: 20ch;
+  max-width: 14ch;
+  margin: var(--space-xs) 0 var(--space-md);
+}
+
+.accent {
+  color: var(--ccc-accent);
 }
 
 .heroSubtitle {
   font-size: var(--text-lg);
   color: var(--ccc-muted);
-  max-width: 58ch;
-  line-height: 1.65;
-}
-
-.sectionHeading {
-  font-family: var(--font-display);
-  font-size: var(--text-4xl);
-  color: var(--ccc-paper);
-  margin-top: var(--space-xs);
-  margin-bottom: var(--space-xl);
-}
-
-/* 2. DUAL CONVERSION PATHS */
-.pathsSection {
-  padding: var(--space-section) 0;
-  border-bottom: 1px solid var(--ccc-line-dark);
-}
-
-.pathsGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-xl);
-}
-
-@media (min-width: 1024px) {
-  .pathsGrid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.pathCardDark {
-  min-width: 0;
-  background-color: var(--ccc-panel);
-  border: 1px solid var(--ccc-line-dark);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
-  display: flex;
-  flex-direction: column;
-}
-
-.pathCardPaper {
-  min-width: 0;
-  background-color: var(--ccc-paper);
-  color: var(--ccc-ink);
-  padding: var(--space-xl);
-  display: flex;
-  flex-direction: column;
-}
-
-.pathCardHeader {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 1rem;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: var(--space-md);
-}
-
-.pathLabel {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--ccc-accent);
-  letter-spacing: 0.12em;
-}
-
-.pathIndicator {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--ccc-muted);
-  letter-spacing: 0.12em;
-}
-
-.pathLabelPaper {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--ccc-ink-muted);
-  letter-spacing: 0.12em;
-}
-
-.pathIndicatorPaper {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--ccc-ink-muted);
-  letter-spacing: 0.12em;
-}
-
-.pathTitle {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  color: var(--ccc-paper);
-  margin-bottom: var(--space-sm);
-}
-
-.pathTitlePaper {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  color: var(--ccc-ink);
-  margin-bottom: var(--space-sm);
-}
-
-.pathDesc {
-  font-size: var(--text-base);
-  color: var(--ccc-muted);
-  line-height: 1.6;
-  margin-bottom: var(--space-lg);
-}
-
-.pathDescPaper {
-  font-size: var(--text-base);
-  color: var(--ccc-ink-muted);
-  line-height: 1.6;
-  margin-bottom: var(--space-lg);
-}
-
-.checklistBlock {
-  background-color: rgba(17, 15, 14, 0.4);
-  border: 1px solid var(--ccc-line-dark);
-  padding: 1.25rem;
-  margin-bottom: var(--space-xl);
-  border-radius: var(--radius-sm);
-}
-
-.pathCardPaper .checklistBlock {
-  background-color: #e6e2d8;
-  border-color: var(--ccc-line-light);
-}
-
-.checklistHeading {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ccc-paper);
-  margin-bottom: 0.75rem;
-}
-
-.pathCardPaper .checklistHeading {
-  color: var(--ccc-ink);
-}
-
-.checklist {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.checkItem {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  font-size: var(--text-sm);
-  color: var(--ccc-muted);
-}
-
-.checkItemPaper {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  font-size: var(--text-sm);
-  color: var(--ccc-ink-muted);
-}
-
-.bulletDark {
-  width: 5px;
-  height: 5px;
-  background-color: var(--ccc-accent);
-  border-radius: 50%;
-  flex-shrink: 0;
-  transform: translateY(-2px);
-}
-
-.bulletPaper {
-  width: 5px;
-  height: 5px;
-  background-color: var(--ccc-ink);
-  border-radius: 50%;
-  flex-shrink: 0;
-  transform: translateY(-2px);
-}
-
-.cardAction {
-  margin-top: auto;
-  margin-bottom: var(--space-sm);
-}
-
-.actionNote {
-  font-family: var(--font-mono);
-  font-size: clamp(0.6rem, 0.55rem + 0.1vw, 0.7rem);
-  color: var(--ccc-muted);
-  opacity: 0.6;
-  line-height: 1.5;
-}
-
-.actionNotePaper {
-  font-family: var(--font-mono);
-  font-size: clamp(0.6rem, 0.55rem + 0.1vw, 0.7rem);
-  color: var(--ccc-ink-muted);
-  opacity: 0.7;
-  line-height: 1.5;
-}
-
-/* 3. HOW IT WORKS */
-.howSection {
-  padding: var(--space-section) 0;
-  border-bottom: 1px solid var(--ccc-line-dark);
-}
-
-.stepsRow {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-lg);
-}
-
-@media (min-width: 768px) {
-  .stepsRow {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.stepItem {
-  background-color: var(--ccc-panel);
-  border: 1px solid var(--ccc-line-dark);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
-}
-
-.stepNum {
-  font-family: var(--font-mono);
-  font-size: var(--text-lg);
-  color: var(--ccc-accent);
-  display: block;
-  margin-bottom: var(--space-md);
-}
-
-.stepTitle {
-  font-family: var(--font-display);
-  font-size: var(--text-2xl);
-  color: var(--ccc-paper);
-  margin-bottom: var(--space-xs);
-}
-
-.stepDesc {
-  font-size: var(--text-sm);
-  color: var(--ccc-muted);
-  line-height: 1.65;
-}
-
-/* 4. FALLBACK NOTICE */
-.fallbackNoticeSection {
-  padding: var(--space-xl) 0;
-}
-
-.fallbackBox {
-  background-color: #1a1714;
-  border: 1px dashed var(--ccc-accent);
-  padding: 1.5rem;
-  border-radius: var(--radius-sm);
-}
-
-.fallbackTag {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.14em;
-  color: var(--ccc-accent);
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.fallbackText {
-  font-size: var(--text-sm);
-  color: var(--ccc-muted);
+  max-width: 54ch;
   line-height: 1.6;
 }
 
-.fallbackText code {
-  font-family: var(--font-mono);
-  background-color: var(--ccc-ink);
-  padding: 0.15rem 0.4rem;
-  border: 1px solid var(--ccc-line-dark);
-  border-radius: var(--radius-lg);
-  color: var(--ccc-paper);
-}
-
-/* ENQUIRY FORM */
+/* ───── Form ───── */
 .formSection {
   padding: var(--space-section) 0;
   background-color: var(--ccc-paper);
   color: var(--ccc-ink);
+  border-top: 3px solid var(--ccc-ink);
+  scroll-margin-top: var(--header-height);
 }
 
 .formLayout {
@@ -322,26 +44,136 @@
 
 @media (min-width: 1024px) {
   .formLayout {
-    grid-template-columns: 1fr 1.6fr;
+    grid-template-columns: 0.8fr 1.4fr;
+    align-items: start;
+  }
+
+  .formIntro {
+    position: sticky;
+    top: calc(var(--header-height) + 1.5rem);
   }
 }
 
-.formIntro {
+.formIntro,
+.formWrap {
   min-width: 0;
 }
 
 .formHeading {
-  font-family: var(--font-display);
   font-size: var(--text-4xl);
-  line-height: 1.1;
+  line-height: 1;
   color: var(--ccc-ink);
-  margin-top: var(--space-xs);
-  margin-bottom: var(--space-md);
+  margin: var(--space-xs) 0 var(--space-md);
 }
 
 .formLead {
   font-size: var(--text-lg);
-  color: var(--ccc-ink-muted);
   line-height: 1.6;
-  max-width: 44ch;
+  color: var(--ccc-ink-muted);
+  max-width: 40ch;
+  margin-bottom: var(--space-xl);
+}
+
+.steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.stepNum {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--ccc-ink);
+  color: var(--ccc-paper);
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+.stepTitle {
+  display: block;
+  font-weight: 700;
+}
+
+.stepBody {
+  display: block;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--ccc-ink-muted);
+  max-width: 38ch;
+}
+
+/* ───── Chat panel ───── */
+.chatSection {
+  padding: var(--space-section) 0;
+}
+
+.chatBox {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: var(--space-2xl) clamp(1.1rem, 4vw, 4rem);
+  text-align: center;
+  background-color: var(--ccc-accent);
+  color: var(--ccc-ink);
+  border-radius: var(--radius-xl);
+  box-shadow: 10px 10px 0 var(--ccc-yellow);
+}
+
+.chatTitle {
+  margin: var(--space-xs) auto var(--space-sm);
+  font-size: clamp(2rem, 1rem + 5vw, 4.25rem);
+  max-width: 16ch;
+  color: var(--ccc-ink);
+  overflow-wrap: anywhere;
+}
+
+.chatText {
+  margin: 0 auto var(--space-xl);
+  font-size: var(--text-lg);
+  color: var(--ccc-ink);
+}
+
+.chatBtn {
+  display: flex;
+  justify-content: center;
+}
+
+/* ───── Dev-only notice ───── */
+.fallbackNoticeSection {
+  padding: 0 0 var(--space-xl);
+}
+
+.fallbackBox {
+  padding: 1.5rem;
+  border: 2px dashed var(--ccc-accent);
+  border-radius: var(--radius-md);
+}
+
+.fallbackTag {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  color: var(--ccc-accent);
+}
+
+.fallbackText {
+  font-size: var(--text-sm);
+  color: var(--ccc-muted);
+}
+
+.fallbackText code {
+  font-family: var(--font-mono);
+  color: var(--ccc-paper);
 }

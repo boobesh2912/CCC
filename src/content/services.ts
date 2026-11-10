@@ -1,158 +1,250 @@
-export interface ServiceItem {
+/**
+ * CCC services. Two service lines, each with specific offerings.
+ * Copy is deliberately non-binding: no guaranteed results, prices, or timelines.
+ */
+
+export type OfferingIcon =
+  | 'strategy'
+  | 'script'
+  | 'camera'
+  | 'edit'
+  | 'instagram'
+  | 'youtube'
+  | 'linkedin'
+  | 'website'
+  | 'meta'
+  | 'google'
+  | 'seo'
+  | 'paid';
+
+export interface Offering {
   id: string;
-  index: string;
   title: string;
-  shortDescription: string;
-  fullDescription: string;
-  whoItHelps: string;
-  typicalWork: string[];
-  cta: string;
-  ctaType: 'studio' | 'services';
+  icon: OfferingIcon;
+  description: string;
+  /** Typical collaboration, in non-binding language. */
+  points: string[];
 }
 
-export const services: ServiceItem[] = [
+export interface Service {
+  id: 'personal-branding' | 'digital-marketing';
+  index: string;
+  title: string;
+  tagline: string;
+  description: string;
+  whoItHelps: string;
+  /** Short chips shown on the overview cards. */
+  chips: string[];
+  offerings: Offering[];
+  cta: string;
+}
+
+export const services: Service[] = [
   {
-    id: 'content-strategy',
+    id: 'personal-branding',
     index: '01',
-    title: 'Content Strategy',
-    shortDescription: 'Define what to say, who to say it to, and where to say it.',
-    fullDescription:
-      'A content strategy maps your expertise to the formats and channels your audience actually uses. CCC helps define topics, plan content calendars, and build a repeatable system for publishing.',
-    whoItHelps: 'Founders, teams, and brands building a consistent content presence.',
-    typicalWork: [
-      'Audience and topic definition',
-      'Content calendar planning',
-      'Channel and format recommendations',
-      'Messaging and positioning guidance',
+    title: 'Personal Branding',
+    tagline: 'Become the name people remember in your field.',
+    description:
+      'We shape how you show up online, from the story you tell to the content you publish on Instagram, YouTube, LinkedIn and your own website. One clear voice, planned and produced end to end.',
+    whoItHelps:
+      'Founders, professionals, creators and experts who want their name to carry weight online.',
+    chips: [
+      'Instagram',
+      'YouTube',
+      'LinkedIn',
+      'Website',
+      'Scripting',
+      'Shooting',
+      'Content strategy',
+      'Editing',
     ],
-    cta: 'Discuss Content Strategy',
-    ctaType: 'services',
+    cta: 'Start Personal Branding',
+    offerings: [
+      {
+        id: 'content-strategy',
+        title: 'Content Strategy',
+        icon: 'strategy',
+        description: 'A clear plan for what to say, who to say it to, and where to say it.',
+        points: [
+          'Audience and positioning',
+          'Content pillars and calendar',
+          'Platform-by-platform plan',
+        ],
+      },
+      {
+        id: 'scripting',
+        title: 'Scripting',
+        icon: 'script',
+        description: 'Hooks, scripts and briefs that turn your ideas into content worth watching.',
+        points: [
+          'Reel, Short and long-form scripts',
+          'Hooks and storytelling structure',
+          'Creative direction for each shoot',
+        ],
+      },
+      {
+        id: 'shooting',
+        title: 'Shooting',
+        icon: 'camera',
+        description: 'Planned shoot days so you arrive prepared and leave with content you can use.',
+        points: [
+          'Shot lists and shoot planning',
+          'Video and photo for your channels',
+          'Setup depends on the project',
+        ],
+      },
+      {
+        id: 'editing',
+        title: 'Editing',
+        icon: 'edit',
+        description: 'Raw footage shaped into polished videos, ready for each platform.',
+        points: [
+          'Reels, Shorts and long-form edits',
+          'Captions, subtitles and graphics',
+          'Formats for each platform',
+        ],
+      },
+      {
+        id: 'instagram',
+        title: 'Instagram',
+        icon: 'instagram',
+        description: 'A profile and content rhythm that looks consistent and feels like you.',
+        points: [
+          'Profile and highlights setup',
+          'Reels, carousels and stories',
+          'Content planning and posting',
+        ],
+      },
+      {
+        id: 'youtube',
+        title: 'YouTube',
+        icon: 'youtube',
+        description: 'A channel built to be found, watched and remembered.',
+        points: [
+          'Channel positioning and setup',
+          'Titles, thumbnails and editing',
+          'Upload and content workflow',
+        ],
+      },
+      {
+        id: 'linkedin',
+        title: 'LinkedIn',
+        icon: 'linkedin',
+        description: 'Show your expertise where decision-makers are already paying attention.',
+        points: [
+          'Profile optimisation',
+          'Posts and carousels in your voice',
+          'Thought-leadership planning',
+        ],
+      },
+      {
+        id: 'website',
+        title: 'Website',
+        icon: 'website',
+        description: 'A clean personal or brand website that backs up everything you publish.',
+        points: [
+          'Portfolio and brand pages',
+          'Mobile-first design',
+          'SEO foundations',
+        ],
+      },
+    ],
   },
   {
-    id: 'scripting',
+    id: 'digital-marketing',
     index: '02',
-    title: 'Scripting & Creative Direction',
-    shortDescription: 'Shape ideas into structured, purposeful scripts and briefs.',
-    fullDescription:
-      'Great content starts with a clear plan. CCC helps shape ideas into scripts, outlines, and creative briefs that make recording sessions productive and content purposeful.',
-    whoItHelps: 'Podcasters, video creators, and teams preparing content.',
-    typicalWork: [
-      'Episode and video scripting',
-      'Interview preparation and question design',
-      'Creative brief development',
-      'Narrative and story structuring',
-    ],
-    cta: 'Discuss Scripting',
-    ctaType: 'services',
-  },
-  {
-    id: 'editing',
-    index: '03',
-    title: 'Video & Podcast Editing',
-    shortDescription: 'Turn raw recordings into polished, publishable content.',
-    fullDescription:
-      'CCC handles editing from raw footage or audio through to a finished product ready for publishing. This includes cuts, colour, sound, graphics, and format adaptation for different platforms.',
-    whoItHelps: 'Creators and businesses producing regular video or podcast content.',
-    typicalWork: [
-      'Video editing and colour grading',
-      'Podcast audio editing and mixing',
-      'Short-form clip creation',
-      'Subtitles and basic graphics',
-    ],
-    cta: 'Discuss Editing',
-    ctaType: 'services',
-  },
-  {
-    id: 'branding',
-    index: '04',
-    title: 'Brand Identity',
-    shortDescription: 'Build a visual and verbal identity that holds up across every touchpoint.',
-    fullDescription:
-      'A clear brand identity makes every piece of content more recognisable and more effective. CCC develops visual systems, tone guidelines, and brand assets that work across platforms.',
-    whoItHelps: 'New brands, businesses repositioning, and creators building a personal brand.',
-    typicalWork: [
-      'Logo and visual identity design',
-      'Brand guidelines and tone of voice',
-      'Social media templates and asset systems',
-      'Brand audit and refinement',
-    ],
-    cta: 'Discuss Branding',
-    ctaType: 'services',
-  },
-  {
-    id: 'social-media',
-    index: '05',
-    title: 'Social Media Management',
-    shortDescription: 'Keep channels active with consistent, well-crafted content.',
-    fullDescription:
-      'CCC manages social channels with planned, produced, and published content. The focus is on consistency, quality, and a system that reflects the brand without requiring daily founder involvement.',
-    whoItHelps: 'Businesses and creators who need consistent social presence without doing it all themselves.',
-    typicalWork: [
-      'Content planning and scheduling',
-      'Post creation and copywriting',
-      'Platform management and community response',
-      'Performance tracking and reporting',
-    ],
-    cta: 'Discuss Social Media',
-    ctaType: 'services',
-  },
-  {
-    id: 'marketing',
-    index: '06',
     title: 'Digital Marketing',
-    shortDescription: 'Reach the right people with planned, measured campaigns.',
-    fullDescription:
-      'CCC plans and manages digital campaigns across search, social, and content channels. The approach is practical, data-informed, and focused on helping real people find your work.',
-    whoItHelps: 'Businesses investing in paid or organic growth who want a partner, not just an ad account.',
-    typicalWork: [
-      'Campaign strategy and planning',
-      'Ad creation and management',
-      'SEO foundations and content optimisation',
-      'Analytics setup and performance reporting',
+    tagline: 'Put your brand in front of the people ready to buy.',
+    description:
+      'Paid and organic marketing across Meta, Google and search, planned around your goals and your budget. We test, measure and refine so your spend works harder over time.',
+    whoItHelps:
+      'Businesses and brands that want more enquiries, a wider market and a clearer view of what their marketing is doing.',
+    chips: ['Meta Ads', 'Google Ads', 'SEO', 'Paid marketing', 'Retargeting', 'Reporting'],
+    cta: 'Start Digital Marketing',
+    offerings: [
+      {
+        id: 'meta-ads',
+        title: 'Meta Ads',
+        icon: 'meta',
+        description: 'Facebook and Instagram campaigns built around creative that earns the click.',
+        points: [
+          'Audience and creative testing',
+          'Lead and sales campaigns',
+          'Tracking and optimisation',
+        ],
+      },
+      {
+        id: 'google-ads',
+        title: 'Google Ads',
+        icon: 'google',
+        description: 'Reach people while they are actively searching for what you offer.',
+        points: [
+          'Search, Display and YouTube campaigns',
+          'Keyword planning and ad copy',
+          'Conversion tracking',
+        ],
+      },
+      {
+        id: 'seo',
+        title: 'SEO',
+        icon: 'seo',
+        description: 'Build steady, organic visibility so the right people can find you.',
+        points: [
+          'Keyword research',
+          'On-page and technical basics',
+          'Local SEO and search content',
+        ],
+      },
+      {
+        id: 'paid-marketing',
+        title: 'Paid Marketing',
+        icon: 'paid',
+        description: 'A joined-up paid strategy so every rupee of ad spend has a job to do.',
+        points: [
+          'Budget planning across channels',
+          'Funnels and retargeting',
+          'Clear reporting on what matters',
+        ],
+      },
     ],
-    cta: 'Discuss Marketing',
-    ctaType: 'services',
   },
-];
-
-export const studioFeatures = [
-  'Studio rental',
-  'Podcast and video recording',
-  'Editing and content delivery',
-  'Production support, where available',
-];
-
-export const brandFeatures = [
-  'Content strategy and scripting',
-  'Branding and identity',
-  'Video editing',
-  'Social media management',
-  'Digital marketing',
 ];
 
 export const processSteps = [
   {
     index: '01',
-    title: 'Shape the idea',
-    description: 'Define the audience, the message, and the format.',
-    label: 'DEFINE',
+    title: 'Discover',
+    description: 'We learn your brand, your audience, and what you want to achieve.',
+    label: 'DISCOVER',
   },
   {
     index: '02',
-    title: 'Set the scene',
-    description: 'Plan the recording, visuals, and production needs.',
+    title: 'Strategise',
+    description: 'We plan the content, the channels, and the budget around your goals.',
     label: 'PLAN',
   },
   {
     index: '03',
-    title: 'Make the work',
-    description: 'Record, shoot, design, or edit.',
+    title: 'Create & launch',
+    description: 'We produce the content and set up the campaigns, with your input at each step.',
     label: 'CREATE',
   },
   {
     index: '04',
-    title: 'Put it to work',
-    description: 'Prepare content for the channels where the audience will see it.',
-    label: 'PUBLISH',
+    title: 'Grow & refine',
+    description: 'We review what is working, improve it, and keep building momentum.',
+    label: 'GROW',
   },
+];
+
+/** Platforms and channels, used for the marquee band. */
+export const marqueeItems = [
+  'Personal Branding',
+  'Instagram',
+  'YouTube',
+  'LinkedIn',
+  'Meta Ads',
+  'Google Ads',
+  'SEO',
 ];

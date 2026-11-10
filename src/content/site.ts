@@ -8,9 +8,9 @@
 export const siteConfig = {
   name: 'Covai Creative Corner',
   shortName: 'CCC',
-  tagline: 'A creative studio for the stories and brands people need to notice.',
+  tagline: 'A creative marketing agency for the stories and brands people need to notice.',
   description:
-    'Covai Creative Corner is a creative production studio and brand partner for podcasts, video, brands, and content built to connect.',
+    'Covai Creative Corner is a personal branding and digital marketing agency that helps founders, creators and businesses expand their market and grow.',
   url: 'https://covaicreativecorner.com', // TODO: Confirm domain before launch
 
   /**
@@ -35,36 +35,30 @@ export const siteConfig = {
   },
 
   navigation: [
-    { label: 'Studio', href: '/studio' },
     { label: 'Services', href: '/services' },
     { label: 'Work', href: '/work' },
     { label: 'About', href: '/about' },
+    { label: 'Studio', href: '/studio' },
   ] as const,
 
   footerNavigation: [
     {
-      title: 'Studio',
-      links: [
-        { label: 'Studio Rental', href: '/studio' },
-        { label: 'Production Support', href: '/studio#production' },
-        { label: 'Book a Session', href: '/contact' },
-      ],
-    },
-    {
       title: 'Services',
       links: [
-        { label: 'Content Strategy', href: '/services#content-strategy' },
-        { label: 'Branding & Identity', href: '/services#branding' },
-        { label: 'Video & Podcast Editing', href: '/services#editing' },
-        { label: 'Social Media', href: '/services#social-media' },
-        { label: 'Digital Marketing', href: '/services#marketing' },
+        { label: 'Personal Branding', href: '/services#personal-branding' },
+        { label: 'Digital Marketing', href: '/services#digital-marketing' },
+        { label: 'Instagram & YouTube', href: '/services#instagram' },
+        { label: 'LinkedIn', href: '/services#linkedin' },
+        { label: 'Meta & Google Ads', href: '/services#meta-ads' },
+        { label: 'SEO', href: '/services#seo' },
       ],
     },
     {
       title: 'Company',
       links: [
         { label: 'About CCC', href: '/about' },
-        { label: 'Selected Work', href: '/work' },
+        { label: 'What We Create', href: '/work' },
+        { label: 'Studio (coming soon)', href: '/studio' },
         { label: 'Contact', href: '/contact' },
       ],
     },
