@@ -1,0 +1,57 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.sticker {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem 0.55rem 0.85rem;
+  border: 3px solid var(--ccc-ink);
+  border-radius: var(--radius-pill);
+  box-shadow: 4px 4px 0 var(--ccc-ink);
+  color: var(--ccc-ink);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  white-space: nowrap;
+  animation: float 6s ease-in-out infinite;
+}
+
+.one {
+  right: -2%;
+  top: -7%;
+  background-color: var(--ccc-yellow);
+  rotate: 4deg;
+}
+
+.two {
+  left: -3%;
+  bottom: 14%;
+  background-color: var(--ccc-pink);
+  rotate: -5deg;
+  animation-delay: -2s;
+}
+
+.three {
+  right: 4%;
+  bottom: -6%;
+  background-color: var(--ccc-paper);
+  rotate: 3deg;
+  animation-delay: -4s;
+}
+
+@keyframes float {
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticker {
+    animation: none;
+  }
+}

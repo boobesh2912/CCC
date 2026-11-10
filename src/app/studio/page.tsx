@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import MotionReveal from '@/components/motion/MotionReveal';
+import SplitText from '@/components/motion/SplitText';
 import TiltFrame from '@/components/motion/TiltFrame';
 import ButtonLink from '@/components/ui/ButtonLink';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
@@ -42,9 +43,12 @@ export default function StudioPage() {
               <SectionEyebrow text="THE STUDIO" />
               <span className={styles.soonBadge}>COMING SOON</span>
             </div>
-            <h1 className={styles.heroTitle}>
-              Something worth recording is <span className={styles.accent}>on its way.</span>
-            </h1>
+            <SplitText
+              as="h1"
+              immediate
+              className={styles.heroTitle}
+              parts={[{ text: 'Something worth recording is' }, { text: 'on its way.', accent: true }]}
+            />
             <p className={styles.heroSubtitle}>
               The CCC studio isn&apos;t open yet. We&apos;re getting a space ready for podcasts, interviews
               and brand shoots, and we&apos;d love to tell you when it&apos;s ready.

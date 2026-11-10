@@ -18,3 +18,30 @@
 .ink {
   color: var(--ccc-ink);
 }
+
+/* A short line that draws itself in when the label's section reveals */
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 2.25rem;
+  height: 2px;
+  margin-right: 0.75rem;
+  vertical-align: middle;
+  background-color: currentColor;
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+:global(.js) :global(.reveal):not(:global(.visible)) .eyebrow::before {
+  transform: scaleX(0);
+}
+
+:global(.reveal.visible) .eyebrow::before {
+  transition: transform 900ms var(--ease-out-expo) 250ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(.js) :global(.reveal):not(:global(.visible)) .eyebrow::before {
+    transform: none;
+  }
+}

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import MotionReveal from '@/components/motion/MotionReveal';
+import SplitText from '@/components/motion/SplitText';
 import ButtonLink from '@/components/ui/ButtonLink';
 import WhatsAppCTA from '@/components/ui/WhatsAppCTA';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
@@ -73,7 +74,7 @@ export default function WorkPage() {
         <div className="container">
           <MotionReveal direction="up" immediate>
             <SectionEyebrow text="WHAT WE CAN CREATE" />
-            <h1 className={styles.heroTitle}>Content and campaigns, built to be noticed.</h1>
+            <SplitText as="h1" immediate className={styles.heroTitle} parts="Content and campaigns, built to be noticed." />
             <p className={styles.heroSubtitle}>
               These are the kinds of content and campaigns CCC can help you plan, make and grow. Real
               projects will appear here as they&apos;re approved for publication.

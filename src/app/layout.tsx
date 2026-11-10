@@ -4,6 +4,7 @@ import '@/styles/globals.css';
 import SiteHeader from '@/components/navigation/SiteHeader';
 import ContactFooter from '@/components/navigation/ContactFooter';
 import Preloader from '@/components/ui/Preloader';
+import ScrollProgress from '@/components/motion/ScrollProgress';
 import { siteConfig } from '@/content/site';
 
 const bricolage = Bricolage_Grotesque({
@@ -73,6 +74,7 @@ export default function RootLayout({
       </head>
       <body className="grain-overlay">
         <Preloader />
+        <ScrollProgress />
         <SiteHeader />
         <main id="main-content">{children}</main>
         <ContactFooter />

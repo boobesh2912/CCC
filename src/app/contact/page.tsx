@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import MotionReveal from '@/components/motion/MotionReveal';
+import SplitText from '@/components/motion/SplitText';
 import WhatsAppCTA from '@/components/ui/WhatsAppCTA';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import EnquiryForm from '@/components/sections/EnquiryForm';
@@ -38,9 +39,12 @@ export default function ContactPage() {
         <div className="container">
           <MotionReveal direction="up" immediate>
             <SectionEyebrow text="CONTACT" />
-            <h1 className={styles.heroTitle}>
-              Let&apos;s figure out the <span className={styles.accent}>right next step.</span>
-            </h1>
+            <SplitText
+              as="h1"
+              immediate
+              className={styles.heroTitle}
+              parts={[{ text: "Let's figure out the" }, { text: 'right next step.', accent: true }]}
+            />
             <p className={styles.heroSubtitle}>
               Tell us about your brand, your goals and your monthly budget. We&apos;ll reply on WhatsApp
               with the best way to begin.

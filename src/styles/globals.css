@@ -485,3 +485,70 @@ button {
     animation: none;
   }
 }
+
+
+/* ========================================
+   Animated headlines (SplitText)
+   ======================================== */
+
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0 0.04em 0.14em;
+  margin: 0 -0.04em -0.14em;
+}
+
+.split-inner {
+  display: inline-block;
+}
+
+.split-accent {
+  color: var(--ccc-accent);
+}
+
+/* Scroll-triggered: hidden only when JS is running */
+.js .split:not(.split-now) .split-inner {
+  transform: translateY(115%);
+}
+
+.js .split:not(.split-now).visible .split-inner {
+  transform: none;
+  transition: transform 900ms var(--ease-out-expo)
+    calc(var(--split-delay, 0ms) + var(--i, 0) * var(--split-stagger, 70ms));
+}
+
+/* Above the fold: CSS-only, plays on first paint */
+.split-now .split-inner {
+  animation: split-in 1000ms var(--ease-out-expo) both;
+  animation-delay: calc(var(--split-delay, 0ms) + var(--i, 0) * var(--split-stagger, 70ms));
+}
+
+.preloading .split-now .split-inner {
+  animation-delay: calc(2.3s + var(--split-delay, 0ms) + var(--i, 0) * var(--split-stagger, 70ms));
+}
+
+@keyframes split-in {
+  from {
+    transform: translateY(115%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .split:not(.split-now) .split-inner {
+    transform: none;
+  }
+
+  .split-now .split-inner {
+    animation: none;
+  }
+}
+
+/* ========================================
+   Dot texture (SVG pattern, solid colour — no gradients)
+   ======================================== */
+
+.bg-dots {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Ccircle cx='2' cy='2' r='1.4' fill='%23FAF8F4' fill-opacity='0.13'/%3E%3C/svg%3E");
+  background-size: 28px 28px;
+}

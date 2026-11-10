@@ -2,6 +2,9 @@ import styles from './Marquee.module.css';
 
 interface MarqueeProps {
   items: string[];
+  /** `solid` is the orange band; `outline` is big outlined text on the page background. */
+  variant?: 'solid' | 'outline';
+  reverse?: boolean;
 }
 
 function Star() {
@@ -13,7 +16,7 @@ function Star() {
 }
 
 /** Scrolling headline band. Decorative: the words are exposed once to screen readers. */
-export default function Marquee({ items }: MarqueeProps) {
+export default function Marquee({ items, variant = 'solid', reverse = false }: MarqueeProps) {
   const row = (
     <ul className={styles.row}>
       {items.map((item) => (
@@ -26,9 +29,9 @@ export default function Marquee({ items }: MarqueeProps) {
   );
 
   return (
-    <div className={styles.band}>
+    <div className={`${styles.band} ${variant === 'outline' ? styles.outline : ''}`}>
       <p className="sr-only">{items.join(', ')}</p>
-      <div className={styles.track} aria-hidden="true">
+      <div className={`${styles.track} ${reverse ? styles.reverse : ''}`} aria-hidden="true">
         {row}
         {row}
       </div>

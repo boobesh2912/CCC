@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import ButtonLink from '@/components/ui/ButtonLink';
 import MotionReveal from '@/components/motion/MotionReveal';
+import SplitText from '@/components/motion/SplitText';
 import WhatsAppCTA from '@/components/ui/WhatsAppCTA';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import { getServicesEnquiryUrl } from '@/lib/whatsapp';
@@ -40,7 +41,7 @@ export default function AboutPage() {
         <div className="container">
           <MotionReveal direction="up" immediate>
             <SectionEyebrow text="ABOUT CCC" />
-            <h1 className={styles.heroTitle}>Good content starts before the camera rolls.</h1>
+            <SplitText as="h1" immediate className={styles.heroTitle} parts="Good content starts before the camera rolls." />
             <p className={styles.heroSubtitle}>
               Covai Creative Corner is a personal branding and digital marketing agency built around one
               conviction: the strongest work comes from a clear point of view, a thoughtful plan,

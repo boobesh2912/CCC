@@ -9,7 +9,11 @@ import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import Marquee from '@/components/ui/Marquee';
 import RotatingBadge from '@/components/ui/RotatingBadge';
 import FAQAccordion from '@/components/sections/FAQAccordion';
-import HeroCollage from '@/components/sections/HeroCollage';
+import HeroStickers from '@/components/sections/HeroStickers';
+import HeroVisual from '@/components/sections/HeroVisual';
+import PlatformTiles from '@/components/sections/PlatformTiles';
+import WhyCards from '@/components/sections/WhyCards';
+import SplitText from '@/components/motion/SplitText';
 import ProcessSequence from '@/components/sections/ProcessSequence';
 import ServiceCards from '@/components/sections/ServiceCards';
 import { processSteps, marqueeItems } from '@/content/services';
@@ -56,7 +60,7 @@ export default function HomePage() {
   return (
     <div className={styles.page}>
       {/* 1. HERO */}
-      <section className={styles.heroSection} aria-label="Introduction">
+      <section className={`${styles.heroSection} bg-dots`} aria-label="Introduction">
         <div className="container">
           <div className={styles.heroLayout}>
             <div className={styles.heroContent}>
@@ -68,9 +72,13 @@ export default function HomePage() {
               </MotionReveal>
 
               <MotionReveal direction="up" delay={200} immediate>
-                <h1 className={styles.heroTitle}>
-                  Make room for a <span className={styles.heroAccent}>better story.</span>
-                </h1>
+                <SplitText
+                  as="h1"
+                  immediate
+                  stagger={90}
+                  className={styles.heroTitle}
+                  parts={[{ text: 'Make room for a' }, { text: 'better story.', accent: true }]}
+                />
               </MotionReveal>
 
               <MotionReveal direction="up" delay={300} immediate>
@@ -104,10 +112,11 @@ export default function HomePage() {
 
             <div className={styles.heroMedia}>
               <RotatingBadge className={styles.heroBadge} />
+              <HeroStickers />
               <MotionReveal direction="up" delay={250} immediate>
                 <ParallaxImage speed={0.04}>
                   <TiltFrame>
-                    <HeroCollage />
+                    <HeroVisual />
                   </TiltFrame>
                 </ParallaxImage>
               </MotionReveal>
@@ -124,7 +133,7 @@ export default function HomePage() {
           <div className={styles.servicesHead}>
             <MotionReveal direction="up">
               <SectionEyebrow text="01 · WHAT WE DO" variant="light" />
-              <h2 className={styles.servicesHeading}>Two services. One growing brand.</h2>
+              <SplitText className={styles.servicesHeading} parts="Two services. One growing brand." />
             </MotionReveal>
             <MotionReveal direction="up" delay={150}>
               <Link href="/services" className={styles.pillLink}>
@@ -137,13 +146,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. PROCESS */}
+      {/* 3. PLATFORMS */}
+      <section className={`${styles.platformsSection} bg-dots`}>
+        <div className="container">
+          <MotionReveal direction="up">
+            <SectionEyebrow text="02 · WHERE YOU SHOW UP" />
+          </MotionReveal>
+          <SplitText className={styles.sectionHeading} parts="Every platform that matters, covered." />
+          <PlatformTiles />
+        </div>
+      </section>
+
+      {/* 4. PROCESS */}
       <section className={styles.processSection}>
         <div className="container">
           <MotionReveal direction="up">
             <div className={styles.processHeader}>
-              <SectionEyebrow text="02 · HOW WE WORK" />
-              <h2 className={styles.sectionHeading}>From first idea to real momentum.</h2>
+              <SectionEyebrow text="03 · HOW WE WORK" />
+              <SplitText className={styles.sectionHeading} parts="From first idea to real momentum." />
               <p className={styles.processLead}>
                 Four stages that take your brand from a rough idea to content and campaigns your
                 audience actually sees.
@@ -154,13 +174,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. WHAT WE CAN CREATE (illustrative) */}
+      {/* 5. WHY CCC */}
+      <section className={styles.whySection}>
+        <div className="container">
+          <MotionReveal direction="up">
+            <SectionEyebrow text="04 · HOW WE THINK" variant="ink" />
+          </MotionReveal>
+          <SplitText className={styles.whyHeading} parts="Marketing with a point of view." />
+          <WhyCards />
+        </div>
+      </section>
+
+      {/* 6. WHAT WE CAN CREATE (illustrative) */}
       <section className={styles.capabilitiesSection}>
         <div className="container">
           <div className={styles.capabilitiesHeader}>
             <MotionReveal direction="up">
-              <SectionEyebrow text="03 · WHAT WE CAN CREATE" />
-              <h2 className={styles.sectionHeading}>Content and campaigns built to be noticed.</h2>
+              <SectionEyebrow text="05 · WHAT WE CAN CREATE" />
+              <SplitText className={styles.sectionHeading} parts="Content and campaigns built to be noticed." />
               <p className={styles.capabilitiesSub}>
                 Illustrative formats, not client projects, showing the kinds of work CCC can help you
                 make.
@@ -194,14 +225,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. STUDIO — COMING SOON */}
+      <Marquee
+        variant="outline"
+        reverse
+        items={['Tell your story', 'Grow your brand', 'Expand your market']}
+      />
+
+      {/* 7. STUDIO — COMING SOON */}
       <section className={styles.soonSection}>
         <div className="container">
           <MotionReveal direction="up">
             <div className={styles.soonCard}>
               <div className={styles.soonText}>
                 <span className={styles.soonBadge}>COMING SOON</span>
-                <h2 className={styles.soonTitle}>The CCC Studio is on its way.</h2>
+                <SplitText className={styles.soonTitle} parts="The CCC Studio is on its way." />
                 <p className={styles.soonCopy}>
                   We&apos;re getting a space ready for podcasts, interviews and brand shoots. Want to
                   hear when it opens?
@@ -220,10 +257,8 @@ export default function HomePage() {
         <div className="container">
           <div className={styles.philosophyBlock}>
             <MotionReveal direction="up">
-              <SectionEyebrow text="04 · PHILOSOPHY" />
-              <h2 className={styles.philosophyHeading}>
-                Good content starts before the camera rolls.
-              </h2>
+              <SectionEyebrow text="06 · PHILOSOPHY" />
+              <SplitText className={styles.philosophyHeading} parts="Good content starts before the camera rolls." />
             </MotionReveal>
             <MotionReveal direction="up" delay={150}>
               <p className={styles.philosophyBody}>
@@ -247,13 +282,13 @@ export default function HomePage() {
       </section>
 
       {/* 7. FAQ */}
-      <section className={styles.faqSection}>
+      <section className={`${styles.faqSection} bg-dots`}>
         <div className="container">
           <div className={styles.faqLayout}>
             <div className={styles.faqHeader}>
               <MotionReveal direction="up">
-                <SectionEyebrow text="05 · QUESTIONS" />
-                <h2 className={styles.sectionHeading}>Frequently asked questions.</h2>
+                <SectionEyebrow text="07 · QUESTIONS" />
+                <SplitText className={styles.sectionHeading} parts="Frequently asked questions." />
                 <p className={styles.faqSub}>
                   Quick answers about the services. For anything specific, send us an enquiry.
                 </p>
@@ -274,7 +309,7 @@ export default function HomePage() {
           <div className={styles.closingCard}>
             <MotionReveal direction="up">
               <span className={styles.closingEyebrow}>LET&apos;S TALK</span>
-              <h2 className={styles.closingHeadline}>Ready to grow a brand people remember?</h2>
+              <SplitText className={styles.closingHeadline} parts="Ready to grow a brand people remember?" />
               <p className={styles.closingCopy}>
                 Tell us about your brand and your goals. We&apos;ll help you figure out the right next
                 step.

@@ -522,3 +522,37 @@
   max-width: 60ch;
   margin: 0 auto;
 }
+
+/* PLATFORMS */
+.platformsSection {
+  padding: var(--space-section) 0;
+  background-color: var(--ccc-panel);
+  border-bottom: 1px solid var(--ccc-line-dark);
+}
+
+.platformsSection .sectionHeading {
+  max-width: 16ch;
+  margin-bottom: var(--space-xl);
+  font-size: var(--text-5xl);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  font-weight: 800;
+}
+
+/* WHY CCC (orange section) */
+.whySection {
+  padding: var(--space-section) 0;
+  background-color: var(--ccc-accent);
+  color: var(--ccc-ink);
+  border-block: 3px solid var(--ccc-ink);
+}
+
+.whyHeading {
+  margin: var(--space-xs) 0 var(--space-xl);
+  max-width: 14ch;
+  font-size: var(--text-5xl);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  font-weight: 800;
+  color: var(--ccc-ink);
+}

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import MotionReveal from '@/components/motion/MotionReveal';
+import SplitText from '@/components/motion/SplitText';
 import ButtonLink from '@/components/ui/ButtonLink';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import ServiceIcon from '@/components/ui/ServiceIcon';
@@ -23,9 +24,12 @@ export default function ServicesPage() {
         <div className="container">
           <MotionReveal direction="up" immediate>
             <SectionEyebrow text="SERVICES" />
-            <h1 className={styles.heroTitle}>
-              Two services. <span className={styles.accent}>Everything</span> your brand needs.
-            </h1>
+            <SplitText
+              as="h1"
+              immediate
+              className={styles.heroTitle}
+              parts={[{ text: 'Two services.' }, { text: 'Everything', accent: true }, { text: 'your brand needs.' }]}
+            />
             <p className={styles.heroSubtitle}>
               Build the story with Personal Branding, then put it in front of the right people with
               Digital Marketing. Start with one, or bring both together.
@@ -59,7 +63,7 @@ export default function ServicesPage() {
                     <span className={styles.serviceIndex}>{svc.index}</span>
                     <SectionEyebrow text="SERVICE" variant={light ? 'light' : 'dark'} />
                   </div>
-                  <h2 className={styles.serviceTitle}>{svc.title}</h2>
+                  <SplitText className={styles.serviceTitle} parts={svc.title} />
                   <p className={styles.serviceTagline}>{svc.tagline}</p>
                 </MotionReveal>
 

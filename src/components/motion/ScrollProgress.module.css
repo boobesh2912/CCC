@@ -1,0 +1,16 @@
+.track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 150;
+  height: 4px;
+  pointer-events: none;
+}
+
+.bar {
+  height: 100%;
+  background-color: var(--ccc-yellow);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
